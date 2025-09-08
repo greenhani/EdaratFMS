@@ -252,7 +252,7 @@ export default function StatsDetailPanel({
                                 e.stopPropagation();
                                 onRejectDocument(document.id);
                               }}
-                              className="flex items-center space-x-1 px-3 py-1.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-sm hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-xs"
+                              className="flex items-center space-x-1 px-3 py-1.5 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 rounded-sm hover:bg-red-200 dark:hover:bg-red-900/50 transition-colors text-xs"
                             >
                               <XIcon className="w-3 h-3" />
                               <span>Reject</span>
@@ -262,7 +262,7 @@ export default function StatsDetailPanel({
                                 e.stopPropagation();
                                 onApproveDocument(document.id);
                               }}
-                              className="flex items-center space-x-1 px-3 py-1.5 bg-gray-500 dark:bg-gray-600 text-white rounded-sm hover:bg-gray-600 dark:hover:bg-gray-500 transition-colors text-xs"
+                              className="flex items-center space-x-1 px-3 py-1.5 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-sm hover:bg-green-200 dark:hover:bg-green-900/50 transition-colors text-xs"
                             >
                               <Check className="w-3 h-3" />
                               <span>Approve</span>

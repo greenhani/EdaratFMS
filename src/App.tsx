@@ -225,6 +225,42 @@ function App() {
     alert(`Approval notifications resent for ${docs.length} document(s)`);
   };
 
+  const handleApproveDocument = (documentId: string) => {
+    setDocuments(prev => 
+      prev.map(doc => 
+        doc.id === documentId 
+          ? { ...doc, approvalStatus: 'approved', approvedBy: user.name, approvedAt: new Date() }
+          : doc
+      )
+    );
+    console.log(`Document approved: ${documentId} by ${user.name}`);
+    
+    // Remove from selection after approval
+    setSelectedDocuments(prev => {
+      const newSet = new Set(prev);
+      newSet.delete(documentId);
+      return newSet;
+    });
+  };
+
+  const handleRejectDocument = (documentId: string) => {
+    setDocuments(prev => 
+      prev.map(doc => 
+        doc.id === documentId 
+          ? { ...doc, approvalStatus: 'rejected', approvedBy: user.name, approvedAt: new Date() }
+          : doc
+      )
+    );
+    console.log(`Document rejected: ${documentId} by ${user.name}`);
+    
+    // Remove from selection after rejection
+    setSelectedDocuments(prev => {
+      const newSet = new Set(prev);
+      newSet.delete(documentId);
+      return newSet;
+    });
+  };
+
   const handleDocumentSelection = (documentId: string, selected: boolean) => {
     setSelectedDocuments(prev => {
       const newSet = new Set(prev);
@@ -674,6 +710,8 @@ function App() {
           selectedDocuments={selectedDocuments}
           bulkMode={bulkMode}
           onDocumentSelect={handleDocumentSelection}
+          onApproveDocument={handleApproveDocument}
+          onRejectDocument={handleRejectDocument}
           onResendNotification={handleResendNotification}
         />
 
