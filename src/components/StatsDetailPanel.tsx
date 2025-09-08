@@ -222,6 +222,23 @@ export default function StatsDetailPanel({
                           </div>
                         )}
                       </div>
+                      <div className="flex-shrink-0">
+                        {document.approvalStatus === 'approved' && <CheckCircle className="w-4 h-4 text-green-500" />}
+                        {document.approvalStatus === 'rejected' && <XCircle className="w-4 h-4 text-red-500" />}
+                        {document.approvalStatus === 'pending' && <Clock className="w-4 h-4 text-orange-500" />}
+                      </div>
+                      </div>
+                    </button>
+                    
+                    {/* Manager Approval Actions */}
+                    {((user.role === 'manager' && onApproveDocument && onRejectDocument) || (user.role === 'admin' && onResendNotification)) && document.approvalStatus === 'pending' && (
+                      <div className="mt-3 flex items-center space-x-2">
+                        {user.role === 'admin' && onResendNotification && (
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              onResendNotification([document.id]);
+                            }}
                             className="flex items-center space-x-1 px-3 py-1.5 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 rounded-sm hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors text-xs"
                           >
                             <Bell className="w-3 h-3" />

@@ -140,7 +140,7 @@ export default function UserLogin({ onLogin }: UserLoginProps) {
             transition={{ duration: 0.6, delay: 0.8 }}
           >
             <p className="text-xs text-gray-500 dark:text-gray-400">
-              Powered by Edarat Group • Version 2025.1.0
+              Powered by Edarat Group • Version 2024.1.0
             </p>
           </motion.div>
         </motion.div>
