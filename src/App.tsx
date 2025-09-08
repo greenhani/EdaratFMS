@@ -70,6 +70,11 @@ function App() {
 
   // Filter documents based on search query and filters
   const filteredDocuments = useMemo(() => {
+    // Early return if user is not logged in
+    if (!user) {
+      return [];
+    }
+    
     let filtered = documents.filter(doc => {
       if (bulkMode && user.role === 'manager' && doc.approvalStatus !== 'pending') {
         return false;
@@ -107,7 +112,7 @@ function App() {
       
       return sortOrder === 'asc' ? comparison : -comparison;
     });
-  }, [searchQuery, searchFilters, documents, sortBy, sortOrder, bulkMode, user.role]);
+  }, [searchQuery, searchFilters, documents, sortBy, sortOrder, bulkMode, user]);
 
   const documentsByDepartment = useMemo(() => {
     const grouped = filteredDocuments.reduce((acc, doc) => {
@@ -309,20 +314,6 @@ function App() {
     setUploadModalOpen(true);
   };
 
-  const stats = {
-    totalDocuments: filteredDocuments.length,
-    pendingApproval: filteredDocuments.filter(doc => doc.approvalStatus === 'pending').length,
-    departments: documentsByDepartment.length,
-    recentUploads: filteredDocuments.filter(doc => {
-      const daysDiff = Math.floor((Date.now() - new Date(doc.uploadedAt).getTime()) / (1000 * 60 * 60 * 24));
-      return daysDiff <= 7;
-    }).length,
-    approvedDocuments: filteredDocuments.filter(doc => doc.approvalStatus === 'approved').length,
-    rejectedDocuments: filteredDocuments.filter(doc => doc.approvalStatus === 'rejected').length,
-    myDepartmentDocs: filteredDocuments.filter(doc => doc.department === user.department).length,
-    publicDocs: filteredDocuments.filter(doc => doc.accessType === 'public').length,
-  };
-
   const handleShowMoreDepartment = (departmentName: string) => {
     setSelectedDepartment(departmentName);
     setShowDepartmentSidebar(true);
@@ -437,6 +428,20 @@ function App() {
       </ThemeProvider>
     );
   }
+
+  const stats = {
+    totalDocuments: filteredDocuments.length,
+    pendingApproval: filteredDocuments.filter(doc => doc.approvalStatus === 'pending').length,
+    departments: documentsByDepartment.length,
+    recentUploads: filteredDocuments.filter(doc => {
+      const daysDiff = Math.floor((Date.now() - new Date(doc.uploadedAt).getTime()) / (1000 * 60 * 60 * 24));
+      return daysDiff <= 7;
+    }).length,
+    approvedDocuments: filteredDocuments.filter(doc => doc.approvalStatus === 'approved').length,
+    rejectedDocuments: filteredDocuments.filter(doc => doc.approvalStatus === 'rejected').length,
+    myDepartmentDocs: filteredDocuments.filter(doc => doc.department === user.department).length,
+    publicDocs: filteredDocuments.filter(doc => doc.accessType === 'public').length,
+  };
 
   return (
     <ThemeProvider>
