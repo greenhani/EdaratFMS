@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, FileText, Clock, Building2, Eye, CheckCircle, XCircle, Calendar, User, Check, X as XIcon } from 'lucide-react';
+import { X, FileText, Clock, Building2, Eye, CheckCircle, XCircle, Calendar, User, Check, X as XIcon, Bell, Send } from 'lucide-react';
 import { Document, User as UserType } from '../types';
 
 interface StatsDetailPanelProps {
@@ -15,6 +15,7 @@ interface StatsDetailPanelProps {
   onDocumentSelect?: (documentId: string, selected: boolean) => void;
   onApproveDocument?: (documentId: string) => void;
   onRejectDocument?: (documentId: string) => void;
+  onResendNotification?: (documentIds: string[]) => void;
 }
 
 export default function StatsDetailPanel({ 
@@ -29,7 +30,8 @@ export default function StatsDetailPanel({
   bulkMode = false,
   onDocumentSelect,
   onApproveDocument,
-  onRejectDocument
+  onRejectDocument,
+  onResendNotification
 }: StatsDetailPanelProps) {
   if (!isOpen || !statsType) return null;
 
@@ -79,6 +81,9 @@ export default function StatsDetailPanel({
   };
 
   const filteredDocuments = getFilteredDocuments();
+  const selectedPendingDocs = Array.from(selectedDocuments).filter(docId => 
+    filteredDocuments.find(doc => doc.id === docId && doc.approvalStatus === 'pending')
+  );
 
   return (
     <div className={`fixed inset-0 z-[90] flex transition-all duration-300 ease-out ${
@@ -98,6 +103,17 @@ export default function StatsDetailPanel({
                 <div>
                   <h2 className="text-lg font-semibold text-gray-900 dark:text-white">{getTitle()}</h2>
                   <p className="text-sm text-gray-500 dark:text-gray-400">{filteredDocuments.length} documents</p>
+                  {user.role === 'admin' && statsType === 'pending' && selectedPendingDocs.length > 0 && (
+                    <div className="flex items-center space-x-2 mt-2">
+                      <button
+                        onClick={() => onResendNotification?.(selectedPendingDocs)}
+                        className="flex items-center space-x-1 px-3 py-1.5 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 rounded-sm hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors text-xs"
+                      >
+                        <Send className="w-3 h-3" />
+                        <span>Resend Notifications ({selectedPendingDocs.length})</span>
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
               <button
@@ -215,28 +231,44 @@ export default function StatsDetailPanel({
                     </button>
                     
                     {/* Manager Approval Actions */}
-                    {user.role === 'manager' && document.approvalStatus === 'pending' && onApproveDocument && onRejectDocument && (
+                    {((user.role === 'manager' && onApproveDocument && onRejectDocument) || (user.role === 'admin' && onResendNotification)) && document.approvalStatus === 'pending' && (
                       <div className="mt-3 flex items-center space-x-2">
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            onRejectDocument(document.id);
-                          }}
-                          className="flex items-center space-x-1 px-3 py-1.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-sm hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-xs"
-                        >
-                          <XIcon className="w-3 h-3" />
-                          <span>Reject</span>
-                        </button>
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            onApproveDocument(document.id);
-                          }}
-                          className="flex items-center space-x-1 px-3 py-1.5 bg-gray-500 dark:bg-gray-600 text-white rounded-sm hover:bg-gray-600 dark:hover:bg-gray-500 transition-colors text-xs"
-                        >
-                          <Check className="w-3 h-3" />
-                          <span>Approve</span>
-                        </button>
+                        {user.role === 'admin' && onResendNotification && (
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              onResendNotification([document.id]);
+                            }}
+                            className="flex items-center space-x-1 px-3 py-1.5 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 rounded-sm hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors text-xs"
+                          >
+                            <Bell className="w-3 h-3" />
+                            <span>Resend Notification</span>
+                          </button>
+                        )}
+                        {user.role === 'manager' && onApproveDocument && onRejectDocument && (
+                          <>
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                onRejectDocument(document.id);
+                              }}
+                              className="flex items-center space-x-1 px-3 py-1.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-sm hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-xs"
+                            >
+                              <XIcon className="w-3 h-3" />
+                              <span>Reject</span>
+                            </button>
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                onApproveDocument(document.id);
+                              }}
+                              className="flex items-center space-x-1 px-3 py-1.5 bg-gray-500 dark:bg-gray-600 text-white rounded-sm hover:bg-gray-600 dark:hover:bg-gray-500 transition-colors text-xs"
+                            >
+                              <Check className="w-3 h-3" />
+                              <span>Approve</span>
+                            </button>
+                          </>
+                        )}
                       </div>
                     )}
                   </div>

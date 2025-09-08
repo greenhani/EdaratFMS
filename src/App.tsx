@@ -195,6 +195,20 @@ function App() {
     setBulkMode(false);
   };
 
+  const handleResendNotification = (documentIds: string[]) => {
+    const docs = documents.filter(doc => documentIds.includes(doc.id));
+    const approverEmails = docs.map(doc => {
+      const approver = mockUsers.find(u => 
+        u.role === 'manager' && u.department === doc.department
+      );
+      return approver?.email || 'manager@edaratgroup.com';
+    });
+    
+    // Simulate notification resend
+    console.log(`Resending approval notifications for ${docs.length} document(s) to:`, approverEmails);
+    alert(`Approval notifications resent for ${docs.length} document(s)`);
+  };
+
   const handleDocumentSelection = (documentId: string, selected: boolean) => {
     setSelectedDocuments(prev => {
       const newSet = new Set(prev);
@@ -644,6 +658,7 @@ function App() {
           selectedDocuments={selectedDocuments}
           bulkMode={bulkMode}
           onDocumentSelect={handleDocumentSelection}
+          onResendNotification={handleResendNotification}
         />
 
         {/* Drag Overlay */}
