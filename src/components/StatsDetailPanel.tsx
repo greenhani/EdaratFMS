@@ -15,6 +15,7 @@ interface StatsDetailPanelProps {
   onDocumentSelect?: (documentId: string, selected: boolean) => void;
   onApproveDocument?: (documentId: string) => void;
   onRejectDocument?: (documentId: string) => void;
+  selectedDepartment?: string;
 }
 
 export default function StatsDetailPanel({ 
@@ -29,7 +30,8 @@ export default function StatsDetailPanel({
   bulkMode = false,
   onDocumentSelect,
   onApproveDocument,
-  onRejectDocument
+  onRejectDocument,
+  selectedDepartment
 }: StatsDetailPanelProps) {
   if (!isOpen || !statsType) return null;
 
