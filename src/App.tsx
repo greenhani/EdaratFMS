@@ -19,6 +19,7 @@ import { mockUsers, mockUser as defaultUser, mockDocuments, mockDepartments, moc
 
 function App() {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
   const [selectedDepartment, setSelectedDepartment] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchFilters, setSearchFilters] = useState<SearchFilters>({
@@ -50,6 +51,7 @@ function App() {
   };
 
   const handleLogout = () => {
+    setIsLoggingOut(true);
     setCurrentUser(null);
     // Reset all state when logging out
     setSelectedDocument(null);
@@ -66,6 +68,11 @@ function App() {
     setUploadModalOpen(false);
     setPreviewOpen(false);
     setStatsDetailOpen(false);
+    
+    // Small delay to ensure state is properly reset before showing login
+    setTimeout(() => {
+      setIsLoggingOut(false);
+    }, 100);
   };
 
   // Filter documents based on search query and filters
@@ -409,7 +416,7 @@ function App() {
   };
 
   // Show UserLogin page if no user is logged in
-  if (!currentUser || !user) {
+  if (!currentUser || isLoggingOut) {
     return <UserLogin onLogin={handleLogin} />;
   }
 
