@@ -40,7 +40,9 @@ export default function StatsDetailPanel({
       case 'pending':
         return documents.filter(doc => doc.approvalStatus === 'pending');
       case 'department':
-        return documents.filter(doc => doc.department === user.department);
+        return selectedDepartment 
+          ? documents.filter(doc => doc.department === selectedDepartment)
+          : documents.filter(doc => doc.department === user.department);
       case 'public':
         return documents.filter(doc => doc.accessType === 'public');
       default:
@@ -55,7 +57,9 @@ export default function StatsDetailPanel({
       case 'pending':
         return 'Pending Approval';
       case 'department':
-        return `${user.department} Documents`;
+        return selectedDepartment 
+          ? `${selectedDepartment} Documents`
+          : `${user.department} Documents`;
       case 'public':
         return 'Public Documents';
       default:

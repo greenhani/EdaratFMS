@@ -258,8 +258,8 @@ function App() {
   };
 
   const handleShowMoreDepartment = (departmentName: string) => {
-    setSelectedDepartment(departmentName);
-    setShowDepartmentSidebar(true);
+    setSelectedStatsType('department');
+    setStatsDetailOpen(true);
   };
 
   const renderDocuments = () => {
