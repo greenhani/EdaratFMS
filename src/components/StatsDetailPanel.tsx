@@ -15,7 +15,6 @@ interface StatsDetailPanelProps {
   onDocumentSelect?: (documentId: string, selected: boolean) => void;
   onApproveDocument?: (documentId: string) => void;
   onRejectDocument?: (documentId: string) => void;
-  selectedDepartment?: string;
 }
 
 export default function StatsDetailPanel({ 
@@ -30,8 +29,7 @@ export default function StatsDetailPanel({
   bulkMode = false,
   onDocumentSelect,
   onApproveDocument,
-  onRejectDocument,
-  selectedDepartment
+  onRejectDocument
 }: StatsDetailPanelProps) {
   if (!isOpen || !statsType) return null;
 
@@ -42,9 +40,7 @@ export default function StatsDetailPanel({
       case 'pending':
         return documents.filter(doc => doc.approvalStatus === 'pending');
       case 'department':
-        return selectedDepartment 
-          ? documents.filter(doc => doc.department === selectedDepartment)
-          : documents.filter(doc => doc.department === user.department);
+        return documents.filter(doc => doc.department === user.department);
       case 'public':
         return documents.filter(doc => doc.accessType === 'public');
       default:
@@ -59,9 +55,7 @@ export default function StatsDetailPanel({
       case 'pending':
         return 'Pending Approval';
       case 'department':
-        return selectedDepartment 
-          ? `${selectedDepartment} Documents`
-          : `${user.department} Documents`;
+        return `${user.department} Documents`;
       case 'public':
         return 'Public Documents';
       default:

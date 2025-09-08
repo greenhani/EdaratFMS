@@ -259,8 +259,7 @@ function App() {
 
   const handleShowMoreDepartment = (departmentName: string) => {
     setSelectedDepartment(departmentName);
-    setSelectedStatsType('department');
-    setStatsDetailOpen(true);
+    setShowDepartmentSidebar(true);
   };
 
   const renderDocuments = () => {
