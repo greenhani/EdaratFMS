@@ -42,7 +42,8 @@ function App() {
   const [selectedDocuments, setSelectedDocuments] = useState<Set<string>>(new Set());
   const [bulkMode, setBulkMode] = useState(false);
 
-  const user = currentUser || defaultUser;
+  // Only use currentUser, no fallback to defaultUser
+  const user = currentUser;
 
   const handleLogin = (user: User) => {
     setCurrentUser(user);
@@ -50,6 +51,21 @@ function App() {
 
   const handleLogout = () => {
     setCurrentUser(null);
+    // Reset all state when logging out
+    setSelectedDocument(null);
+    setCurrentView('main');
+    setSearchQuery('');
+    setSearchFilters({
+      department: 'All',
+      type: 'All',
+      fileType: 'All',
+      dateRange: 'All',
+    });
+    setSelectedDocuments(new Set());
+    setBulkMode(false);
+    setUploadModalOpen(false);
+    setPreviewOpen(false);
+    setStatsDetailOpen(false);
   };
 
   // Filter documents based on search query and filters
@@ -366,7 +382,7 @@ function App() {
   };
 
   // Show UserLogin page if no user is logged in
-  if (!currentUser) {
+  if (!currentUser || !user) {
     return <UserLogin onLogin={handleLogin} />;
   }
 
