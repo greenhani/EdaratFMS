@@ -161,6 +161,7 @@ export const mockDocuments: Document[] = [
     url: '/documents/benefits-enrollment-guide.pdf',
     expiryDate: new Date('2025-11-30'),
     requiresAcceptance: true
+    notifyAllAfterApproval: true
   },
   {
     id: '9',

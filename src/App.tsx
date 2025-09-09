@@ -223,6 +223,7 @@ function App() {
 
   const handleBulkApproval = (action: 'approve' | 'reject') => {
     const selectedDocs = documents.filter(doc => selectedDocuments.has(doc.id));
+    const docsToNotify = selectedDocs.filter(doc => doc.notifyAllAfterApproval && action === 'approve');
     
     setDocuments(prev => 
       prev.map(doc => 
@@ -233,6 +234,13 @@ function App() {
     );
     
     console.log(`${action}d ${selectedDocs.length} documents`);
+    
+    // Send notifications for approved documents that have the flag set
+    if (docsToNotify.length > 0) {
+      console.log(`Sending notifications to all employees about ${docsToNotify.length} approved documents`);
+      alert(`${selectedDocs.length} documents ${action}d! Notifications sent to all employees about ${docsToNotify.length} documents.`);
+    }
+    
     setSelectedDocuments(new Set());
     setBulkMode(false);
   };

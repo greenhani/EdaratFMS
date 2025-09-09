@@ -185,6 +185,7 @@ export default function UploadModal({ isOpen, onClose, onUpload, user }: UploadM
         tags: file.metadata!.tags,
         description: file.metadata!.description,
         url: URL.createObjectURL(file.file),
+        notifyAllAfterApproval: file.metadata!.notifyAllAfterApproval,
       } as Partial<Document>));
 
     onUpload(completedDocuments);

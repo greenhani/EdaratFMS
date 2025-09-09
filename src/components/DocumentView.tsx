@@ -251,6 +251,13 @@ export default function DocumentView({
                     ))}
                   </div>
                 )}
+                
+                {document.notifyAllAfterApproval && (
+                  <div className="flex justify-between">
+                    <dt className="text-sm text-gray-500 dark:text-gray-400">Notify All After Approval:</dt>
+                    <dd className="text-sm text-blue-600 dark:text-blue-400 font-medium">Yes</dd>
+                  </div>
+                )}
               </div>
             </div>
           </div>
