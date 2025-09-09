@@ -47,6 +47,7 @@ function App() {
   const [bulkMode, setBulkMode] = useState(false);
   const [feedbackModalOpen, setFeedbackModalOpen] = useState(false);
   const [feedbackDocument, setFeedbackDocument] = useState<Document | null>(null);
+  const [bulkRejectModalOpen, setBulkRejectModalOpen] = useState(false);
   const [addDepartmentModalOpen, setAddDepartmentModalOpen] = useState(false);
   const [departments, setDepartments] = useState<Department[]>(mockDepartments);
   const [departmentDetailOpen, setDepartmentDetailOpen] = useState(false);
@@ -225,23 +226,30 @@ function App() {
   };
 
   const handleBulkApproval = (action: 'approve' | 'reject') => {
+    if (action === 'reject') {
+      setBulkRejectModalOpen(true);
+      return;
+    }
+    
     const selectedDocs = documents.filter(doc => selectedDocuments.has(doc.id));
     const docsToNotify = selectedDocs.filter(doc => doc.notifyAllAfterApproval && action === 'approve');
     
     setDocuments(prev => 
       prev.map(doc => 
         selectedDocuments.has(doc.id) 
-          ? { ...doc, approvalStatus: action === 'approve' ? 'approved' : 'rejected', approvedBy: user.name, approvedAt: new Date() }
+          ? { ...doc, approvalStatus: 'approved', approvedBy: user.name, approvedAt: new Date() }
           : doc
       )
     );
     
-    console.log(`${action}d ${selectedDocs.length} documents`);
+    console.log(`Approved ${selectedDocs.length} documents`);
     
     // Send notifications for approved documents that have the flag set
     if (docsToNotify.length > 0) {
       console.log(`Sending notifications to all employees about ${docsToNotify.length} approved documents`);
-      alert(`${selectedDocs.length} documents ${action}d! Notifications sent to all employees about ${docsToNotify.length} documents.`);
+      alert(`${selectedDocs.length} documents approved! Notifications sent to all employees about ${docsToNotify.length} documents.`);
+    } else {
+      alert(`${selectedDocs.length} documents approved successfully!`);
     }
     
     setSelectedDocuments(new Set());
