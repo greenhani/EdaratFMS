@@ -76,7 +76,7 @@ export default function DocumentCard({
           )}
           <button
             onClick={onClick}
-            className="flex-1 text-left px-2 py-2 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-all group"
+            className="flex-1 text-left px-2 py-2 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-all group ripple"
           >
             <div className="flex items-center space-x-3">
               <div className="flex-shrink-0">
@@ -93,7 +93,7 @@ export default function DocumentCard({
               {showApprovalStatus && getStatusIcon()}
             </div>
           </button>
-        </div>
+          </button>
       </div>
     );
   }
@@ -122,24 +122,25 @@ export default function DocumentCard({
           </div>
         )}
         <button
-        onClick={onClick}
+          onClick={onClick}
           className="flex-1 text-left ripple"
         >
-        <div className="flex items-center space-x-3">
-          <div className="flex-shrink-0">
-            {getFileIcon()}
-          </div>
-          <div className="flex-1 min-w-0">
-            <h3 className="text-sm font-semibold text-gray-800 dark:text-white truncate">
-              {document.title}
-            </h3>
-            <div className="text-xs text-gray-600 dark:text-gray-400 mt-0.5">
-              <div className="flex items-center space-x-2">
-                <span>{document.type}</span>
-                <span>•</span>
-                <div className="flex items-center space-x-1">
-                  <Calendar className="w-3 h-3" />
-                  <span>Updated: {new Date(document.lastModified).toLocaleDateString()}</span>
+          <div className="flex items-center space-x-3">
+            <div className="flex-shrink-0">
+              {getFileIcon()}
+            </div>
+            <div className="flex-1 min-w-0">
+              <h3 className="text-sm font-semibold text-gray-800 dark:text-white truncate">
+                {document.title}
+              </h3>
+              <div className="text-xs text-gray-600 dark:text-gray-400 mt-0.5">
+                <div className="flex items-center space-x-2">
+                  <span>{document.type}</span>
+                  <span>•</span>
+                  <div className="flex items-center space-x-1">
+                    <Calendar className="w-3 h-3" />
+                    <span>Updated: {new Date(document.lastModified).toLocaleDateString()}</span>
+                  </div>
                 </div>
               </div>
               {document.expiryDate && (
@@ -156,124 +157,3 @@ export default function DocumentCard({
                   <Calendar className="w-3 h-3" />
                   <span>{new Date(document.lastModified).toLocaleDateString()}</span>
                 </div>
-              </div>
-              {document.expiryDate && (
-                <div className={`flex items-center space-x-1 mt-1 ${
-                  new Date(document.expiryDate) < new Date() ? 'text-red-500' : 'text-orange-500'
-                }`}>
-                  <CalendarX className="w-3 h-3" />
-                  <span>Expires: {new Date(document.expiryDate).toLocaleDateString()}</span>
-                </div>
-              )}
-            </div>
-          </div>
-          {showApprovalStatus && getStatusIcon()}
-        </div>
-        </button>
-      </motion.div>
-    );
-  }
-
-  return (
-    <motion.div 
-      className={`document-card relative ${
-        selected ? 'border-neon-blue/50 bg-neon-blue/10 shadow-neon' : ''
-      }`}
-      whileHover={{ 
-        scale: 1.05, 
-        y: -5,
-        boxShadow: "0 20px 40px rgba(255, 255, 255, 0.1)"
-      }}
-      whileTap={{ scale: 0.98 }}
-      layout
-    >
-      {bulkMode && onSelect && (
-        <div className="absolute top-3 left-3 z-10">
-          <input
-            type="checkbox"
-            checked={selected}
-            onChange={(e) => {
-              e.stopPropagation();
-              onSelect(e.target.checked);
-            }}
-            className="rounded border-white/20 bg-white/10 text-neon-blue focus:ring-neon-blue/50"
-          />
-        </div>
-      )}
-      {/* Document Preview */}
-      <div className="aspect-[4/3] bg-gradient-to-br from-white/10 to-white/5 relative overflow-hidden">
-        {document.thumbnail ? (
-          <img
-            src={document.thumbnail}
-            alt={document.title}
-            className="w-full h-full object-cover"
-          />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center">
-            <FileText className="w-12 h-12 text-gray-400 dark:text-white/40" />
-          </div>
-        )}
-        
-        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
-          <motion.button
-            onClick={onClick}
-            className="glass-button-primary"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            <Eye className="w-3 h-3" />
-            <span>View</span>
-          </motion.button>
-        </div>
-
-        <div className="absolute top-3 left-3">
-          <span className="px-2 py-1 glass-panel text-gray-700 dark:text-white text-xs font-medium rounded-xl">
-            {document.fileType.toUpperCase()}
-          </span>
-        </div>
-
-        {showApprovalStatus && (
-          <div className="absolute top-3 right-3">
-            {getStatusIcon()}
-          </div>
-        )}
-      </div>
-
-      {/* Document Info */}
-      <div className="p-4">
-        <h3 className="text-sm font-bold text-gray-800 dark:text-white line-clamp-2 mb-2">
-          {document.title}
-        </h3>
-        
-        <div className="flex items-center justify-between text-xs">
-          <span className="glass-panel text-gray-700 dark:text-white/90 px-2 py-1 rounded-xl font-medium">
-            {document.type}
-          </span>
-          <div className="flex flex-col items-end space-y-1">
-            <div className="flex items-center space-x-1 text-gray-600 dark:text-white/60">
-              <Calendar className="w-3 h-3" />
-              <span>Updated: {new Date(document.lastModified).toLocaleDateString()}</span>
-            </div>
-            {document.expiryDate && (
-              <div className={`flex items-center space-x-1 ${
-                new Date(document.expiryDate) < new Date() ? 'text-red-500' : 'text-orange-500'
-              }`}>
-                <CalendarX className="w-3 h-3" />
-                <span>Expires: {new Date(document.expiryDate).toLocaleDateString()}</span>
-              </div>
-            )}
-          </div>
-        </div>
-        
-        {document.requiresAcceptance && (
-          <div className="mt-2 pt-2 border-t border-gray-200/60 dark:border-white/20">
-            <div className="flex items-center space-x-1 text-xs text-gray-600 dark:text-white/60">
-            <Clock className="w-3 h-3" />
-              <span>Requires Employee Acceptance</span>
-            </div>
-          </div>
-        )}
-      </div>
-    </motion.div>
-  );
-}
