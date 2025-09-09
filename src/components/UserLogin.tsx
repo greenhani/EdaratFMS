@@ -70,8 +70,8 @@ export default function UserLogin({ onLogin }: UserLoginProps) {
           >
             <div className="glass-panel rounded-2xl p-4">
               <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 rounded-full bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center">
-                  <Building2 className="w-4 h-4 text-teal-600 dark:text-teal-400" />
+                <div className="w-8 h-8 rounded-full bg-edarat-light/20 dark:bg-edarat-dark/30 flex items-center justify-center">
+                  <Building2 className="w-4 h-4 text-edarat-dark dark:text-edarat-light" />
                 </div>
                 <div className="text-left">
                   <h3 className="font-semibold text-gray-900 dark:text-white text-sm">
@@ -86,8 +86,8 @@ export default function UserLogin({ onLogin }: UserLoginProps) {
 
             <div className="glass-panel rounded-2xl p-4">
               <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center">
-                  <span className="text-emerald-600 dark:text-emerald-400 font-bold text-sm">🔒</span>
+                <div className="w-8 h-8 rounded-full bg-edarat-dark/20 dark:bg-edarat-light/30 flex items-center justify-center">
+                  <span className="text-edarat-dark dark:text-edarat-light font-bold text-sm">🔒</span>
                 </div>
                 <div className="text-left">
                   <h3 className="font-semibold text-gray-900 dark:text-white text-sm">
