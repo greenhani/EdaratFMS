@@ -213,54 +213,7 @@ export default function DocumentView({
         {/* Right Panel - Metadata and History */}
         <div className="w-96 border-l border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 flex flex-col">
           {/* Document Info Header */}
-          <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-            <div className="flex items-start space-x-4">
-              <div className="flex-shrink-0">
-                {getFileIcon()}
-              </div>
-              <div className="flex-1">
-                <div className="flex items-center space-x-4 text-sm text-gray-500 dark:text-gray-400 mb-3">
-                  <span className="flex items-center space-x-1">
-                    <User className="w-4 h-4" />
-                    <span>Uploaded by {document.uploadedBy}</span>
-                  </span>
-                  <span className="flex items-center space-x-1">
-                    <Calendar className="w-4 h-4" />
-                    <span>{new Date(document.uploadedAt).toLocaleDateString()}</span>
-                  </span>
-                </div>
-                
-                <div className="flex items-center space-x-1 text-sm text-gray-500 dark:text-gray-400 mb-3">
-                  <Building2 className="w-4 h-4" />
-                  <span>{document.department}</span>
-                </div>
-                
-                {document.description && (
-                  <p className="text-gray-700 dark:text-gray-300 text-sm mb-3">{document.description}</p>
-                )}
-                
-                {document.tags && document.tags.length > 0 && (
-                  <div className="flex flex-wrap gap-2">
-                    {document.tags.map((tag, index) => (
-                      <span
-                        key={index}
-                        className="px-2 py-1 bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-400 text-xs rounded-sm"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                )}
-                
-                {document.notifyAllAfterApproval && (
-                  <div className="flex justify-between">
-                    <dt className="text-sm text-gray-500 dark:text-gray-400">Notify All After Approval:</dt>
-                    <dd className="text-sm text-blue-600 dark:text-blue-400 font-medium">Yes</dd>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
+          
 
           {/* Tabs */}
           <div className="border-b border-gray-200 dark:border-gray-700">
