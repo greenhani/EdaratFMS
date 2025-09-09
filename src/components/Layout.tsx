@@ -144,18 +144,16 @@ export default function Layout({ user, children, onSearch, onUploadClick, onLogo
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
-                      {user.avatar ? (
-                        <motion.img
-                          src={user.avatar}
-                          alt={user.name}
-                          className="w-8 h-8 rounded-full object-cover ring-2 ring-white/20"
-                          whileHover={{ scale: 1.1 }}
-                        />
-                      ) : (
-                        <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-purple-600 rounded-full flex items-center justify-center">
-                          <User className="w-4 h-4 text-white" />
-                        </div>
-                      )}
+                     <motion.div whileHover={{ scale: 1.1 }}>
+                       <AvatarImage
+                         src={user.avatar}
+                         alt={user.name}
+                         className="w-8 h-8 rounded-full object-cover ring-2 ring-white/20"
+                         fallbackClassName="w-8 h-8 rounded-full flex items-center justify-center ring-2 ring-white/20"
+                         size={32}
+                         role={user.role}
+                       />
+                     </motion.div>
                       <Menu className="w-4 h-4 text-white/70" />
                     </motion.button>
 

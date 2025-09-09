@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, Users, Shield, UserCheck, Building2, Mail, ChevronRight } from 'lucide-react';
 import * as Dialog from '@radix-ui/react-dialog';
+import AvatarImage from './AvatarImage';
 import { User } from '../types';
 import { mockUsers } from '../data/mockData';
 
@@ -61,17 +62,14 @@ export default function LoginModal({ isOpen, onLogin, onClose }: LoginModalProps
           // Loading State
           <div className="p-8 text-center">
             <div className={`w-16 h-16 rounded-full mx-auto mb-4 overflow-hidden animate-pulse ${getRoleColor(selectedUser.role)}`}>
-              {selectedUser.avatar ? (
-                <img
-                  src={selectedUser.avatar}
-                  alt={selectedUser.name}
-                  className="w-full h-full object-cover"
-                />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center">
-                  {getRoleIcon(selectedUser.role)}
-                </div>
-              )}
+             <AvatarImage
+               src={selectedUser.avatar}
+               alt={selectedUser.name}
+               className="w-full h-full object-cover"
+               fallbackClassName="w-full h-full flex items-center justify-center"
+               size={64}
+               role={selectedUser.role}
+             />
             </div>
             
             <div className="space-y-3">
@@ -149,10 +147,18 @@ export default function LoginModal({ isOpen, onLogin, onClose }: LoginModalProps
                               <img
                                 src={user.avatar}
                                 alt={user.name}
-                                className="w-full h-full object-cover"
+                               className="w-full h-full object-cover"
+                               loading="lazy"
+                               onError={(e) => {
+                                 e.currentTarget.style.display = 'none';
+                                 const parent = e.currentTarget.parentElement;
+                                 if (parent) {
+                                   parent.innerHTML = `<div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-teal-500 to-teal-600">${getRoleIcon(user.role)}</div>`;
+                                 }
+                               }}
                               />
                             ) : (
-                              <div className="w-full h-full flex items-center justify-center">
+                             <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-teal-500 to-teal-600">
                                 {getRoleIcon(user.role)}
                               </div>
                             )}
