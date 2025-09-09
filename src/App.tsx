@@ -15,6 +15,7 @@ import UploadModal from './components/UploadModal';
 import StatsDetailPanel from './components/StatsDetailPanel';
 import FeedbackModal from './components/FeedbackModal';
 import AddDepartmentModal from './components/AddDepartmentModal';
+import DepartmentDetailPanel from './components/DepartmentDetailPanel';
 import { Document, Department, User } from './types';
 import DocumentView from './components/DocumentView';
 import { mockUsers, mockUser as defaultUser, mockDocuments, mockDepartments, mockAuditLogs } from './data/mockData';
@@ -48,6 +49,8 @@ function App() {
   const [feedbackDocument, setFeedbackDocument] = useState<Document | null>(null);
   const [addDepartmentModalOpen, setAddDepartmentModalOpen] = useState(false);
   const [departments, setDepartments] = useState<Department[]>(mockDepartments);
+  const [departmentDetailOpen, setDepartmentDetailOpen] = useState(false);
+  const [selectedDepartmentDetail, setSelectedDepartmentDetail] = useState<Department | null>(null);
 
   // Only use currentUser, no fallback to defaultUser
   const user = currentUser;
@@ -325,8 +328,11 @@ function App() {
   };
 
   const handleShowMoreDepartment = (departmentName: string) => {
-    setSelectedDepartment(departmentName);
-    setSearchFilters(prev => ({ ...prev, department: departmentName }));
+    const dept = departments.find(d => d.name === departmentName);
+    if (dept) {
+      setSelectedDepartmentDetail(dept);
+      setDepartmentDetailOpen(true);
+    }
   };
 
   const handleDocumentSelection = (documentId: string, selected: boolean) => {
@@ -845,6 +851,18 @@ function App() {
           isOpen={addDepartmentModalOpen}
           onClose={() => setAddDepartmentModalOpen(false)}
           onAdd={handleAddDepartment}
+        />
+
+        <DepartmentDetailPanel
+          isOpen={departmentDetailOpen}
+          onClose={() => setDepartmentDetailOpen(false)}
+          department={selectedDepartmentDetail}
+          documents={selectedDepartmentDetail ? documentsByDepartment.find(d => d.department.id === selectedDepartmentDetail.id)?.documents || [] : []}
+          onDocumentClick={handleDocumentClick}
+          showApprovalStatus={user.role !== 'employee'}
+          bulkMode={bulkMode}
+          selectedDocuments={selectedDocuments}
+          onDocumentSelect={handleDocumentSelection}
         />
 
         {/* Drag Overlay */}

@@ -74,10 +74,10 @@ export default function UserLogin({ onLogin }: UserLoginProps) {
                 </div>
                 <div className="text-left">
                   <h3 className="font-semibold text-gray-900 dark:text-white text-sm">
-                    Microsoft Teams SSO
+                    Company Email Login
                   </h3>
                   <p className="text-xs text-gray-600 dark:text-gray-400">
-                    Single sign-on with your corporate account
+                    Sign in with your company email address
                   </p>
                 </div>
               </div>
@@ -140,7 +140,7 @@ export default function UserLogin({ onLogin }: UserLoginProps) {
             transition={{ duration: 0.6, delay: 0.8 }}
           >
             <p className="text-xs text-gray-500 dark:text-gray-400">
-              Powered by Edarat Group • Version 2024.1.0
+              Powered by Edarat Group Authentication • Version 2024.1.0
             </p>
           </motion.div>
         </motion.div>

@@ -80,15 +80,15 @@ export default function LoginModal({ isOpen, onLogin, onClose }: LoginModalProps
               </div>
               
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                Signing in with Microsoft Teams
+                Signing in with Company Portal
               </h3>
               <p className="text-sm text-gray-600 dark:text-gray-300">
-                Authenticating {selectedUser.email}
+                Select your company account to continue
               </p>
               
               <div className="flex items-center justify-center space-x-2 text-xs text-gray-500 dark:text-gray-400 mt-4">
                 <Building2 className="w-4 h-4" />
-                <span>Edarat Group SSO</span>
+                <span>Edarat Group Portal</span>
               </div>
             </div>
           </div>
@@ -110,7 +110,7 @@ export default function LoginModal({ isOpen, onLogin, onClose }: LoginModalProps
                   </div>
                   <div>
                     <Dialog.Title className="text-xl font-bold">EDARAT FMS</Dialog.Title>
-                    <Dialog.Description className="text-teal-100 text-sm">Microsoft Teams SSO</Dialog.Description>
+                    <Dialog.Description className="text-teal-100 text-sm">Company Portal</Dialog.Description>
                   </div>
                 </div>
                 <Dialog.Close className="p-2 text-teal-100 hover:text-white hover:bg-white/10 rounded-sm transition-all duration-200 transform hover:scale-110 hover:rotate-90">
@@ -184,10 +184,10 @@ export default function LoginModal({ isOpen, onLogin, onClose }: LoginModalProps
               <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
                 <div className="flex items-center justify-center space-x-2 text-xs text-gray-500 dark:text-gray-400">
                   <Building2 className="w-4 h-4" />
-                  <span>Powered by Microsoft Teams • Edarat Group</span>
+                  <span>Powered by Edarat Group Authentication</span>
                 </div>
                 <p className="text-center text-xs text-gray-400 dark:text-gray-500 mt-2">
-                  Secure single sign-on authentication
+                  Secure company authentication
                 </p>
               </div>
             </div>
