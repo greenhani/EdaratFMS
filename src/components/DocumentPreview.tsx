@@ -26,6 +26,23 @@ export default function DocumentPreview({
   const renderPreview = () => {
     switch (document.fileType) {
       case 'pdf':
+        // Use HTML preview if available, otherwise show PDF placeholder
+        if (document.htmlPreviewUrl) {
+          return (
+            <div className="w-full h-96 bg-white dark:bg-gray-800 rounded-lg overflow-hidden">
+              <iframe
+                src={document.htmlPreviewUrl}
+                className="w-full h-full border-none"
+                title={`HTML Preview of ${document.title}`}
+                onError={(e) => {
+                  console.error('HTML preview failed to load:', e);
+                  // Could implement fallback to PDF placeholder here
+                }}
+              />
+            </div>
+          );
+        }
+        // Fallback to PDF placeholder
         return (
           <div className="w-full h-96 bg-gray-100 rounded-lg flex items-center justify-center">
             <div className="text-center">
@@ -170,10 +187,14 @@ export default function DocumentPreview({
         {/* Footer */}
         <div className="flex items-center justify-between p-6 border-t border-gray-200">
           <div className="flex space-x-3">
-            <button className="flex items-center space-x-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
+            <a
+              href={document.url}
+              download={document.title}
+              className="flex items-center space-x-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
+            >
               <Download className="w-4 h-4" />
               <span>Download</span>
-            </button>
+            </a>
             <button className="flex items-center space-x-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
               <ExternalLink className="w-4 h-4" />
               <span>Open</span>

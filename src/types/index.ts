@@ -24,6 +24,7 @@ export interface Document {
   description: string;
   url: string;
   thumbnail?: string;
+  htmlPreviewUrl?: string;
   expiryDate?: Date;
   requiresAcceptance?: boolean;
   notifyAllAfterApproval?: boolean;

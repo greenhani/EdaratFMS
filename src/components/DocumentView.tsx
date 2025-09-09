@@ -73,15 +73,17 @@ export default function DocumentView({
   const renderPreview = () => {
     switch (document.fileType) {
       case 'pdf':
+        // Use HTML preview if available, otherwise use original PDF
+        const previewUrl = document.htmlPreviewUrl || document.url;
         return (
           <div className="w-full h-full bg-gray-100 dark:bg-gray-700 relative">
             <iframe
-              src={document.url}
+              src={previewUrl}
               className="w-full h-full border-none"
-              title={`Preview of ${document.title}`}
+              title={document.htmlPreviewUrl ? `HTML Preview of ${document.title}` : `Preview of ${document.title}`}
               onError={(e) => {
-                console.error('PDF preview failed:', e);
-                // Fallback to placeholder if PDF fails to load
+                console.error('Preview failed to load:', e);
+                // Fallback to placeholder if preview fails to load
                 e.currentTarget.style.display = 'none';
                 const fallback = e.currentTarget.parentElement?.querySelector('.pdf-fallback');
                 if (fallback) {
@@ -94,7 +96,7 @@ export default function DocumentView({
                 <div className="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-sm flex items-center justify-center mx-auto mb-3">
                   <FileText className="w-8 h-8 text-red-600 dark:text-red-400" />
                 </div>
-                <p className="text-gray-600 dark:text-gray-300 font-medium">PDF Document</p>
+                <p className="text-gray-600 dark:text-gray-300 font-medium">Document Preview</p>
                 <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Click download to view full document</p>
               </div>
             </div>
@@ -170,10 +172,14 @@ export default function DocumentView({
             
             {/* Action Buttons */}
             <div className="flex items-center space-x-3">
-              <button className="flex items-center space-x-2 px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-sm hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+              <a
+                href={document.url}
+                download={document.title}
+                className="flex items-center space-x-2 px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-sm hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+              >
                 <Download className="w-4 h-4" />
                 <span>Download</span>
-              </button>
+              </a>
               
               <button className="flex items-center space-x-2 px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-sm hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
                 <Copy className="w-4 h-4" />

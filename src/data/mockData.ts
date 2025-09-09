@@ -498,6 +498,7 @@ export const mockDocuments: Document[] = [
     tags: ['privacy', 'policy', 'web', 'gdpr', 'compliance'],
     description: 'Comprehensive web privacy policy outlining data collection, usage, and user rights.',
     url: '/Web-Privacy-Policy.pdf',
+    htmlPreviewUrl: '/Web-Privacy-Policy.html',
     expiryDate: new Date('2026-01-28'),
     requiresAcceptance: true
   }
