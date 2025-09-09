@@ -204,23 +204,6 @@ export default function StatsDetailPanel({
                             </div>
                           )}
                         </div>
-                        {document.tags && document.tags.length > 0 && (
-                          <div className="flex flex-wrap gap-1 mt-2">
-                            {document.tags.slice(0, 3).map((tag, index) => (
-                              <span
-                                key={index}
-                                className="px-2 py-0.5 bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-400 text-xs rounded-sm hover:bg-teal-100 dark:hover:bg-teal-900/50 transition-colors duration-200 ease-out"
-                              >
-                                {tag}
-                              </span>
-                            ))}
-                            {document.tags.length > 3 && (
-                              <span className="text-xs text-gray-400 dark:text-gray-500">
-                                +{document.tags.length - 3} more
-                              </span>
-                            )}
-                          </div>
-                        )}
                       </div>
                       <div className="flex-shrink-0">
                         {document.approvalStatus === 'approved' && <CheckCircle className="w-4 h-4 text-green-500" />}
@@ -231,44 +214,18 @@ export default function StatsDetailPanel({
                     </button>
                     
                     {/* Manager Approval Actions */}
-                    {((user.role === 'manager' && onApproveDocument && onRejectDocument) || (user.role === 'admin' && onResendNotification)) && document.approvalStatus === 'pending' && (
+                    {user.role === 'admin' && onResendNotification && document.approvalStatus === 'pending' && (
                       <div className="mt-3 flex items-center space-x-2">
-                        {user.role === 'admin' && onResendNotification && (
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              onResendNotification([document.id]);
-                            }}
-                            className="flex items-center space-x-1 px-3 py-1.5 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 rounded-sm hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors text-xs"
-                          >
-                            <Bell className="w-3 h-3" />
-                            <span>Resend Notification</span>
-                          </button>
-                        )}
-                        {user.role === 'manager' && onApproveDocument && onRejectDocument && (
-                          <>
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                onRejectDocument(document.id);
-                              }}
-                              className="flex items-center space-x-1 px-3 py-1.5 bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400 rounded-sm hover:bg-orange-200 dark:hover:bg-orange-900/50 transition-colors text-xs"
-                            >
-                              <MessageCircle className="w-3 h-3" />
-                              <span>Send Feedback</span>
-                            </button>
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                onApproveDocument(document.id);
-                              }}
-                              className="flex items-center space-x-1 px-3 py-1.5 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-sm hover:bg-green-200 dark:hover:bg-green-900/50 transition-colors text-xs"
-                            >
-                              <Check className="w-3 h-3" />
-                              <span>Approve</span>
-                            </button>
-                          </>
-                        )}
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onResendNotification([document.id]);
+                          }}
+                          className="flex items-center space-x-1 px-3 py-1.5 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 rounded-sm hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors text-xs"
+                        >
+                          <Bell className="w-3 h-3" />
+                          <span>Resend Notification</span>
+                        </button>
                       </div>
                     )}
                   </div>

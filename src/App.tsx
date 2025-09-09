@@ -562,18 +562,18 @@ function App() {
                   </p>
                 </div>
                 
-                <div className="flex items-center space-x-3">
-                  <motion.button
-                    onClick={() => setUploadModalOpen(true)}
-                    className="glass-button-primary"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Upload className="w-4 h-4" />
-                    <span>Upload Files</span>
-                  </motion.button>
-                  
-                  {user.role === 'manager' && (
+                {user.role === 'admin' && (
+                  <div className="flex items-center space-x-3">
+                    <motion.button
+                      onClick={() => setUploadModalOpen(true)}
+                      className="glass-button-primary"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <Upload className="w-4 h-4" />
+                      <span>Upload Files</span>
+                    </motion.button>
+                    
                     <motion.button
                       onClick={() => setBulkMode(!bulkMode)}
                       className={bulkMode ? "glass-button-success" : "glass-button"}
@@ -582,100 +582,102 @@ function App() {
                     >
                       {bulkMode ? 'Exit Bulk' : 'Bulk Mode'}
                     </motion.button>
-                  )}
+                  </div>
+                )}
+              </div>
+
+              {/* Stats Cards - Admin Only */}
+              {user.role === 'admin' && (
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <motion.button
+                    onClick={() => handleStatsClick('total')}
+                    className="stats-card text-left"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-2xl font-bold text-gray-800 dark:text-white">
+                          {stats.totalDocuments}
+                        </p>
+                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                          Total Documents
+                        </p>
+                      </div>
+                      <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+                        <FileText className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                      </div>
+                    </div>
+                  </motion.button>
+
+                  <motion.button
+                    onClick={() => handleStatsClick('pending')}
+                    className="stats-card text-left"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-2xl font-bold text-gray-800 dark:text-white">
+                          {stats.pendingApproval}
+                        </p>
+                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                          Pending Approval
+                        </p>
+                      </div>
+                      <div className="w-10 h-10 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
+                        <Clock className="w-5 h-5 text-orange-600 dark:text-orange-400" />
+                      </div>
+                    </div>
+                  </motion.button>
+
+                  <motion.button
+                    onClick={() => handleStatsClick('department')}
+                    className="stats-card text-left"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-2xl font-bold text-gray-800 dark:text-white">
+                          {stats.myDepartmentDocs}
+                        </p>
+                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                          My Department
+                        </p>
+                      </div>
+                      <div className="w-10 h-10 rounded-full bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center">
+                        <Building2 className="w-5 h-5 text-teal-600 dark:text-teal-400" />
+                      </div>
+                    </div>
+                  </motion.button>
+
+                  <motion.button
+                    onClick={() => handleStatsClick('public')}
+                    className="stats-card text-left"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-2xl font-bold text-gray-800 dark:text-white">
+                          {stats.publicDocs}
+                        </p>
+                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                          Public Access
+                        </p>
+                      </div>
+                      <div className="w-10 h-10 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
+                        <Eye className="w-5 h-5 text-green-600 dark:text-green-400" />
+                      </div>
+                    </div>
+                  </motion.button>
                 </div>
-              </div>
-
-              {/* Stats Cards */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <motion.button
-                  onClick={() => handleStatsClick('total')}
-                  className="stats-card text-left"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-2xl font-bold text-gray-800 dark:text-white">
-                        {stats.totalDocuments}
-                      </p>
-                      <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                        Total Documents
-                      </p>
-                    </div>
-                    <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
-                      <FileText className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-                    </div>
-                  </div>
-                </motion.button>
-
-                <motion.button
-                  onClick={() => handleStatsClick('pending')}
-                  className="stats-card text-left"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-2xl font-bold text-gray-800 dark:text-white">
-                        {stats.pendingApproval}
-                      </p>
-                      <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                        Pending Approval
-                      </p>
-                    </div>
-                    <div className="w-10 h-10 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
-                      <Clock className="w-5 h-5 text-orange-600 dark:text-orange-400" />
-                    </div>
-                  </div>
-                </motion.button>
-
-                <motion.button
-                  onClick={() => handleStatsClick('department')}
-                  className="stats-card text-left"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-2xl font-bold text-gray-800 dark:text-white">
-                        {stats.myDepartmentDocs}
-                      </p>
-                      <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                        My Department
-                      </p>
-                    </div>
-                    <div className="w-10 h-10 rounded-full bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center">
-                      <Building2 className="w-5 h-5 text-teal-600 dark:text-teal-400" />
-                    </div>
-                  </div>
-                </motion.button>
-
-                <motion.button
-                  onClick={() => handleStatsClick('public')}
-                  className="stats-card text-left"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-2xl font-bold text-gray-800 dark:text-white">
-                        {stats.publicDocs}
-                      </p>
-                      <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                        Public Access
-                      </p>
-                    </div>
-                    <div className="w-10 h-10 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
-                      <Eye className="w-5 h-5 text-green-600 dark:text-green-400" />
-                    </div>
-                  </div>
-                </motion.button>
-              </div>
+              )}
             </motion.div>
 
             {/* Bulk Actions Bar */}
-            {bulkMode && selectedDocuments.size > 0 && (
+            {user.role === 'admin' && bulkMode && selectedDocuments.size > 0 && (
               <motion.div 
                 className="glass-panel rounded-2xl p-4 mb-6"
                 initial={{ opacity: 0, y: -20 }}
@@ -688,35 +690,22 @@ function App() {
                     </span>
                   </div>
                   <div className="flex items-center space-x-2">
-                    {user.role === 'manager' ? (
-                      <>
-                        <motion.button
-                          onClick={() => handleBulkApproval('reject')}
-                          className="glass-button-danger"
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                        >
-                          Reject All
-                        </motion.button>
-                        <motion.button
-                          onClick={() => handleBulkApproval('approve')}
-                          className="glass-button-success"
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                        >
-                          Approve All
-                        </motion.button>
-                      </>
-                    ) : (
-                      <motion.button
-                        onClick={() => handleSendApprovalRequest(Array.from(selectedDocuments))}
-                        className="glass-button-primary"
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                      >
-                        Send for Approval
-                      </motion.button>
-                    )}
+                    <motion.button
+                      onClick={() => handleBulkApproval('reject')}
+                      className="glass-button-danger"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      Reject All
+                    </motion.button>
+                    <motion.button
+                      onClick={() => handleBulkApproval('approve')}
+                      className="glass-button-success"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      Approve All
+                    </motion.button>
                   </div>
                 </div>
               </motion.div>
@@ -748,26 +737,28 @@ function App() {
                 </motion.button>
               </div>
 
-              <div className="flex items-center space-x-3">
-                <select
-                  value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value as 'department' | 'fileType' | 'date')}
-                  className="glass-select"
-                >
-                  <option value="date">Sort by Date</option>
-                  <option value="department">Sort by Department</option>
-                  <option value="fileType">Sort by File Type</option>
-                </select>
-                
-                <motion.button
-                  onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
-                  className="glass-button"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  {sortOrder === 'asc' ? '↑' : '↓'}
-                </motion.button>
-              </div>
+              {user.role === 'admin' && (
+                <div className="flex items-center space-x-3">
+                  <select
+                    value={sortBy}
+                    onChange={(e) => setSortBy(e.target.value as 'department' | 'fileType' | 'date')}
+                    className="glass-select"
+                  >
+                    <option value="date">Sort by Date</option>
+                    <option value="department">Sort by Department</option>
+                    <option value="fileType">Sort by File Type</option>
+                  </select>
+                  
+                  <motion.button
+                    onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
+                    className="glass-button"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    {sortOrder === 'asc' ? '↑' : '↓'}
+                  </motion.button>
+                </div>
+              )}
             </motion.div>
 
             {/* Documents */}
