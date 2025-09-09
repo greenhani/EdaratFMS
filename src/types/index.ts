@@ -24,6 +24,18 @@ export interface Document {
   description: string;
   url: string;
   thumbnail?: string;
+  expiryDate?: Date;
+  requiresAcceptance?: boolean;
+}
+
+export interface DocumentAcceptance {
+  id: string;
+  documentId: string;
+  userId: string;
+  userName: string;
+  userEmail: string;
+  acceptedAt: Date;
+  acceptanceType: 'read' | 'acknowledged' | 'signed';
 }
 
 export interface Department {

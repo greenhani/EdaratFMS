@@ -1,4 +1,5 @@
 import { User, Document, Department, AuditLog, Notification } from '../types';
+import { DocumentAcceptance } from '../types';
 
 export const mockUsers: User[] = [
   {
@@ -43,7 +44,9 @@ export const mockDocuments: Document[] = [
     approvalStatus: 'approved',
     tags: ['handbook', 'policies', 'hr'],
     description: 'Comprehensive guide for all employees covering company policies, procedures, and benefits.',
-    url: '/documents/employee-handbook-2024.pdf'
+    url: '/documents/employee-handbook-2024.pdf',
+    expiryDate: new Date('2025-12-31'),
+    requiresAcceptance: true
   },
   {
     id: '2',
@@ -58,7 +61,9 @@ export const mockDocuments: Document[] = [
     approvalStatus: 'pending',
     tags: ['security', 'it', 'compliance'],
     description: 'Security protocols and guidelines for all IT systems and data handling.',
-    url: '/documents/it-security-policy.docx'
+    url: '/documents/it-security-policy.docx',
+    expiryDate: new Date('2025-06-30'),
+    requiresAcceptance: true
   },
   {
     id: '3',
@@ -88,7 +93,9 @@ export const mockDocuments: Document[] = [
     approvalStatus: 'approved',
     tags: ['emergency', 'safety', 'procedures'],
     description: 'Step-by-step emergency response and evacuation procedures.',
-    url: '/documents/emergency-response.pdf'
+    url: '/documents/emergency-response.pdf',
+    expiryDate: new Date('2025-03-31'),
+    requiresAcceptance: true
   },
   {
     id: '5',
@@ -134,7 +141,9 @@ export const mockDocuments: Document[] = [
     approvalStatus: 'approved',
     tags: ['remote', 'work', 'policy', 'flexible'],
     description: 'Guidelines and requirements for remote work arrangements and hybrid schedules.',
-    url: '/documents/remote-work-policy.docx'
+    url: '/documents/remote-work-policy.docx',
+    expiryDate: new Date('2025-08-31'),
+    requiresAcceptance: true
   },
   {
     id: '8',
@@ -149,7 +158,9 @@ export const mockDocuments: Document[] = [
     approvalStatus: 'approved',
     tags: ['benefits', 'enrollment', 'health', 'insurance'],
     description: 'Step-by-step guide for employee benefits enrollment and coverage options.',
-    url: '/documents/benefits-enrollment-guide.pdf'
+    url: '/documents/benefits-enrollment-guide.pdf',
+    expiryDate: new Date('2025-11-30'),
+    requiresAcceptance: true
   },
   {
     id: '9',
@@ -485,7 +496,39 @@ export const mockDocuments: Document[] = [
     approvalStatus: 'approved',
     tags: ['privacy', 'policy', 'web', 'gdpr', 'compliance'],
     description: 'Comprehensive web privacy policy outlining data collection, usage, and user rights.',
-    url: '/Web-Privacy-Policy.pdf'
+    url: '/Web-Privacy-Policy.pdf',
+    expiryDate: new Date('2026-01-28'),
+    requiresAcceptance: true
+  }
+];
+
+export const mockDocumentAcceptances: DocumentAcceptance[] = [
+  {
+    id: '1',
+    documentId: '1', // Employee Handbook 2024
+    userId: '2',
+    userName: 'Ahmed Al-Rashid',
+    userEmail: 'docly-hr@edaratgroup.com',
+    acceptedAt: new Date('2024-01-16T10:30:00'),
+    acceptanceType: 'signed'
+  },
+  {
+    id: '2',
+    documentId: '7', // Remote Work Policy
+    userId: '3',
+    userName: 'Fatima Al-Zahra',
+    userEmail: 'docly-em001@edaratgroup.com',
+    acceptedAt: new Date('2024-01-19T14:20:00'),
+    acceptanceType: 'acknowledged'
+  },
+  {
+    id: '3',
+    documentId: '1', // Employee Handbook 2024
+    userId: '1',
+    userName: 'Sarah Johnson',
+    userEmail: 'docly-admin@edaratgroup.com',
+    acceptedAt: new Date('2024-01-15T11:45:00'),
+    acceptanceType: 'signed'
   }
 ];
 

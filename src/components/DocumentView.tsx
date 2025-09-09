@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Download, Share2, CheckCircle, XCircle, Eye, Calendar, User, Building2, Tag, FileText, Clock, AlertCircle } from 'lucide-react';
+import { ArrowLeft, Download, Share2, CheckCircle, XCircle, Eye, Calendar, User, Building2, Tag, FileText, Clock, AlertCircle, CalendarX, Users, Send } from 'lucide-react';
 import { Document, User as UserType, AuditLog } from '../types';
+import { mockDocumentAcceptances, mockUsers } from '../data/mockData';
 import AuditTrail from './AuditTrail';
 
 interface DocumentViewProps {
@@ -22,9 +23,24 @@ export default function DocumentView({
   auditLogs 
 }: DocumentViewProps) {
   const [activeTab, setActiveTab] = useState('info');
+  const [showAcceptanceDetails, setShowAcceptanceDetails] = useState(false);
   
   const canApprove = user.role !== 'employee' && document.approvalStatus === 'pending';
   const showHistoryTab = user.role !== 'employee';
+  
+  // Get acceptances for this document
+  const documentAcceptances = mockDocumentAcceptances.filter(
+    acceptance => acceptance.documentId === document.id
+  );
+  
+  const acceptedUserIds = documentAcceptances.map(acceptance => acceptance.userId);
+  const allEmployees = mockUsers.filter(u => u.role === 'employee');
+  const pendingEmployees = allEmployees.filter(emp => !acceptedUserIds.includes(emp.id));
+  
+  const handleSendNotifications = () => {
+    console.log('Sending notifications to employees who haven\'t accepted:', pendingEmployees);
+    alert(`Notifications sent to ${pendingEmployees.length} employees who haven't accepted this document.`);
+  };
 
   const getStatusIcon = () => {
     switch (document.approvalStatus) {
@@ -302,6 +318,29 @@ export default function DocumentView({
                       {new Date(document.lastModified).toLocaleDateString()}
                     </dd>
                   </div>
+                  
+                  {document.expiryDate && (
+                    <div className="flex justify-between">
+                      <dt className="text-sm text-gray-500 dark:text-gray-400">Expiry Date:</dt>
+                      <dd className={`text-sm font-medium ${
+                        new Date(document.expiryDate) < new Date() ? 'text-red-600 dark:text-red-400' : 'text-gray-900 dark:text-white'
+                      }`}>
+                        {new Date(document.expiryDate).toLocaleDateString()}
+                        {new Date(document.expiryDate) < new Date() && (
+                          <span className="ml-2 px-2 py-1 bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 text-xs rounded-sm">
+                            EXPIRED
+                          </span>
+                        )}
+                      </dd>
+                    </div>
+                  )}
+                  
+                  {document.requiresAcceptance && (
+                    <div className="flex justify-between">
+                      <dt className="text-sm text-gray-500 dark:text-gray-400">Requires Acceptance:</dt>
+                      <dd className="text-sm text-green-600 dark:text-green-400 font-medium">Yes</dd>
+                    </div>
+                  )}
                 </dl>
 
                 <h3 className="font-semibold text-gray-900 dark:text-white mb-4 mt-6">Access & Permissions</h3>
@@ -335,6 +374,96 @@ export default function DocumentView({
                     </span>
                   </div>
                 </div>
+                
+                {/* Employee Acceptance Section */}
+                {document.requiresAcceptance && user.role !== 'employee' && (
+                  <>
+                    <h3 className="font-semibold text-gray-900 dark:text-white mb-4 mt-6">Employee Acceptance</h3>
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between p-3 bg-white dark:bg-gray-800 rounded-sm border border-gray-200 dark:border-gray-700">
+                        <div className="flex items-center space-x-2">
+                          <CheckCircle className="w-4 h-4 text-green-500" />
+                          <span className="text-sm text-gray-700 dark:text-gray-300">Accepted</span>
+                        </div>
+                        <span className="text-sm font-medium text-gray-900 dark:text-white">
+                          {documentAcceptances.length} employees
+                        </span>
+                      </div>
+                      
+                      <div className="flex items-center justify-between p-3 bg-white dark:bg-gray-800 rounded-sm border border-gray-200 dark:border-gray-700">
+                        <div className="flex items-center space-x-2">
+                          <Clock className="w-4 h-4 text-orange-500" />
+                          <span className="text-sm text-gray-700 dark:text-gray-300">Pending</span>
+                        </div>
+                        <span className="text-sm font-medium text-gray-900 dark:text-white">
+                          {pendingEmployees.length} employees
+                        </span>
+                      </div>
+                      
+                      <button
+                        onClick={() => setShowAcceptanceDetails(!showAcceptanceDetails)}
+                        className="w-full p-3 bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-400 rounded-sm hover:bg-teal-100 dark:hover:bg-teal-900/50 transition-colors text-sm font-medium"
+                      >
+                        {showAcceptanceDetails ? 'Hide Details' : 'View Details'}
+                      </button>
+                      
+                      {showAcceptanceDetails && (
+                        <div className="space-y-3 mt-3">
+                          {/* Accepted Employees */}
+                          {documentAcceptances.length > 0 && (
+                            <div>
+                              <h4 className="text-sm font-medium text-green-600 dark:text-green-400 mb-2">
+                                ✓ Accepted ({documentAcceptances.length})
+                              </h4>
+                              <div className="space-y-2">
+                                {documentAcceptances.map((acceptance) => (
+                                  <div key={acceptance.id} className="flex items-center justify-between p-2 bg-green-50 dark:bg-green-900/20 rounded border border-green-200 dark:border-green-800">
+                                    <div>
+                                      <span className="text-sm font-medium text-gray-900 dark:text-white">{acceptance.userName}</span>
+                                      <span className="text-xs text-gray-500 dark:text-gray-400 ml-2">{acceptance.userEmail}</span>
+                                    </div>
+                                    <div className="text-xs text-gray-500 dark:text-gray-400">
+                                      {new Date(acceptance.acceptedAt).toLocaleDateString()}
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                          
+                          {/* Pending Employees */}
+                          {pendingEmployees.length > 0 && (
+                            <div>
+                              <div className="flex items-center justify-between mb-2">
+                                <h4 className="text-sm font-medium text-orange-600 dark:text-orange-400">
+                                  ⏳ Pending ({pendingEmployees.length})
+                                </h4>
+                                <button
+                                  onClick={handleSendNotifications}
+                                  className="flex items-center space-x-1 px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 rounded text-xs font-medium hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors"
+                                >
+                                  <Send className="w-3 h-3" />
+                                  <span>Send Reminders</span>
+                                </button>
+                              </div>
+                              <div className="space-y-2">
+                                {pendingEmployees.map((employee) => (
+                                  <div key={employee.id} className="flex items-center justify-between p-2 bg-orange-50 dark:bg-orange-900/20 rounded border border-orange-200 dark:border-orange-800">
+                                    <div>
+                                      <span className="text-sm font-medium text-gray-900 dark:text-white">{employee.name}</span>
+                                      <span className="text-xs text-gray-500 dark:text-gray-400 ml-2">{employee.email}</span>
+                                    </div>
+                                    <span className="text-xs text-orange-600 dark:text-orange-400 font-medium">Not Signed</span>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  </>
+                )}
               </div>
             )}
             

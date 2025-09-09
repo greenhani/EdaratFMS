@@ -265,92 +265,94 @@ function App() {
     );
     console.log(`Document rejected: ${documentId} by ${user.name}`);
     
-    // Remove from selection after rejection
-    setSelectedDocuments(prev => {
-      const newSet = new Set(prev);
-      newSet.delete(documentId);
-      return newSet;
-    });
-  };
+          {/* Stats Cards - Only show for admin */}
+          {user.role === 'admin' && (
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <motion.button
+                onClick={() => handleStatsClick('total')}
+                className="stats-card text-left"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-2xl font-bold text-gray-800 dark:text-white">
+                      {stats.totalDocuments}
+                    </p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                      Total Documents
+                    </p>
+                  </div>
+                  <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+                    <FileText className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                  </div>
+                </div>
+              </motion.button>
 
-  const handleDocumentSelection = (documentId: string, selected: boolean) => {
-    setSelectedDocuments(prev => {
-      const newSet = new Set(prev);
-      if (selected) {
-        newSet.add(documentId);
-      } else {
-        newSet.delete(documentId);
-      }
-      return newSet;
-    });
-  };
+              <motion.button
+                onClick={() => handleStatsClick('pending')}
+                className="stats-card text-left"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-2xl font-bold text-gray-800 dark:text-white">
+                      {stats.pendingApproval}
+                    </p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                      Pending Approval
+                    </p>
+                  </div>
+                  <div className="w-10 h-10 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
+                    <Clock className="w-5 h-5 text-orange-600 dark:text-orange-400" />
+                  </div>
+                </div>
+              </motion.button>
 
-  const handleStatsClick = (statsType: 'total' | 'pending' | 'department' | 'public') => {
-    setSelectedStatsType(statsType);
-    setStatsDetailOpen(true);
-  };
+              <motion.button
+                onClick={() => handleStatsClick('department')}
+                className="stats-card text-left"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-2xl font-bold text-gray-800 dark:text-white">
+                      {stats.myDepartmentDocs}
+                    </p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                      My Department
+                    </p>
+                  </div>
+                  <div className="w-10 h-10 rounded-full bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center">
+                    <Building2 className="w-5 h-5 text-teal-600 dark:text-teal-400" />
+                  </div>
+                </div>
+              </motion.button>
 
-  const clearSearch = () => {
-    setSearchQuery('');
-    setSearchFilters({
-      department: 'All',
-      type: 'All',
-      fileType: 'All',
-      dateRange: 'All',
-    });
-  };
-
-  const handlePageDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setDragOverlay(true);
-  };
-
-  const handlePageDragLeave = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (e.clientX === 0 && e.clientY === 0) {
-      setDragOverlay(false);
-    }
-  };
-
-  const handlePageDrop = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setDragOverlay(false);
-    setUploadModalOpen(true);
-  };
-
-  const handleShowMoreDepartment = (departmentName: string) => {
-    setSelectedDepartment(departmentName);
-    setShowDepartmentSidebar(true);
-  };
-
-  const renderDocuments = () => {
-    const hasActiveSearch = searchQuery || Object.values(searchFilters).some(f => f !== 'All');
-    
-    if (hasActiveSearch) {
-      return (
-        <motion.div 
-          className="space-y-6"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-bold text-gray-800 dark:text-white">
-              Search Results ({filteredDocuments.length})
-            </h2>
-            <motion.button
-              onClick={clearSearch}
-              className="glass-button"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <span>Clear Search</span>
-              <X className="w-4 h-4" />
-            </motion.button>
-          </div>
+              <motion.button
+                onClick={() => handleStatsClick('public')}
+                className="stats-card text-left"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-2xl font-bold text-gray-800 dark:text-white">
+                      {stats.publicDocs}
+                    </p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                      Public Access
+                    </p>
+                  </div>
+                  <div className="w-10 h-10 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
+                    <Eye className="w-5 h-5 text-green-600 dark:text-green-400" />
+                  </div>
+                </div>
+              </motion.button>
+            </div>
+          )}
           
           <div className={`grid ${viewMode === 'grid' 
             ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6' 

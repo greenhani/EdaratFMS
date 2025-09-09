@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FileText, Eye, Download, Clock, CheckCircle, XCircle, AlertCircle, File, FileImage, FileSpreadsheet } from 'lucide-react';
+import { FileText, Eye, Download, Clock, CheckCircle, XCircle, AlertCircle, File, FileImage, FileSpreadsheet, Calendar, CalendarX } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Document } from '../types';
 
@@ -133,9 +133,39 @@ export default function DocumentCard({
             <h3 className="text-sm font-semibold text-gray-800 dark:text-white truncate">
               {document.title}
             </h3>
-            <p className="text-xs text-gray-600 dark:text-gray-400 mt-0.5">
-              {document.type} • {new Date(document.uploadedAt).toLocaleDateString()}
-            </p>
+            <div className="text-xs text-gray-600 dark:text-gray-400 mt-0.5">
+              <div className="flex items-center space-x-2">
+                <span>{document.type}</span>
+                <span>•</span>
+                <div className="flex items-center space-x-1">
+                  <Calendar className="w-3 h-3" />
+                  <span>Updated: {new Date(document.lastModified).toLocaleDateString()}</span>
+                </div>
+              </div>
+              {document.expiryDate && (
+                <div className={`flex items-center space-x-1 mt-1 ${
+                  new Date(document.expiryDate) < new Date() ? 'text-red-500' : 'text-orange-500'
+                }`}>
+                  <CalendarX className="w-3 h-3" />
+                  <span>Expires: {new Date(document.expiryDate).toLocaleDateString()}</span>
+                </div>
+              )}
+            </div>
+                <span>•</span>
+                <div className="flex items-center space-x-1">
+                  <Calendar className="w-3 h-3" />
+                  <span>{new Date(document.lastModified).toLocaleDateString()}</span>
+                </div>
+              </div>
+              {document.expiryDate && (
+                <div className={`flex items-center space-x-1 mt-1 ${
+                  new Date(document.expiryDate) < new Date() ? 'text-red-500' : 'text-orange-500'
+                }`}>
+                  <CalendarX className="w-3 h-3" />
+                  <span>Expires: {new Date(document.expiryDate).toLocaleDateString()}</span>
+                </div>
+              )}
+            </div>
           </div>
           {showApprovalStatus && getStatusIcon()}
         </div>
@@ -219,11 +249,30 @@ export default function DocumentCard({
           <span className="glass-panel text-gray-700 dark:text-white/90 px-2 py-1 rounded-xl font-medium">
             {document.type}
           </span>
-          <div className="flex items-center space-x-1 text-gray-600 dark:text-white/60">
-            <Clock className="w-3 h-3" />
-            <span>{new Date(document.uploadedAt).toLocaleDateString()}</span>
+          <div className="flex flex-col items-end space-y-1">
+            <div className="flex items-center space-x-1 text-gray-600 dark:text-white/60">
+              <Calendar className="w-3 h-3" />
+              <span>Updated: {new Date(document.lastModified).toLocaleDateString()}</span>
+            </div>
+            {document.expiryDate && (
+              <div className={`flex items-center space-x-1 ${
+                new Date(document.expiryDate) < new Date() ? 'text-red-500' : 'text-orange-500'
+              }`}>
+                <CalendarX className="w-3 h-3" />
+                <span>Expires: {new Date(document.expiryDate).toLocaleDateString()}</span>
+              </div>
+            )}
           </div>
         </div>
+        
+        {document.requiresAcceptance && (
+          <div className="mt-2 pt-2 border-t border-gray-200/60 dark:border-white/20">
+            <div className="flex items-center space-x-1 text-xs text-gray-600 dark:text-white/60">
+            <Clock className="w-3 h-3" />
+              <span>Requires Employee Acceptance</span>
+            </div>
+          </div>
+        )}
       </div>
     </motion.div>
   );
