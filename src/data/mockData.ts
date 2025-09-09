@@ -160,7 +160,7 @@ export const mockDocuments: Document[] = [
     description: 'Step-by-step guide for employee benefits enrollment and coverage options.',
     url: '/documents/benefits-enrollment-guide.pdf',
     expiryDate: new Date('2025-11-30'),
-    requiresAcceptance: true
+    requiresAcceptance: true,
     notifyAllAfterApproval: true
   },
   {

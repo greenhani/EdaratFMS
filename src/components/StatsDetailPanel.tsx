@@ -221,7 +221,7 @@ export default function StatsDetailPanel({
                             e.stopPropagation();
                             onResendNotification([document.id]);
                           }}
-                          <span>Approve and Acknowledge</span>
+                          className="flex items-center space-x-1 px-3 py-1.5 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 rounded-sm hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors text-xs"
                         >
                           <Bell className="w-3 h-3" />
                           <span>Resend Notification</span>
