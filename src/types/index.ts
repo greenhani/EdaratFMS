@@ -26,6 +26,7 @@ export interface Document {
   thumbnail?: string;
   expiryDate?: Date;
   requiresAcceptance?: boolean;
+  notifyAllAfterApproval?: boolean;
 }
 
 export interface DocumentAcceptance {

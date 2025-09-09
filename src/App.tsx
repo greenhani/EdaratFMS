@@ -444,6 +444,7 @@ function App() {
                     <Eye className="w-5 h-5 text-green-600 dark:text-green-400" />
                   </div>
                 </div>
+              </motion.button>
             </div>
           )}
           
@@ -763,27 +764,26 @@ function App() {
               </div>
 
               {/* View Controls - Available to all users */}
-                <div className="flex items-center space-x-3">
-                  <select
-                    value={sortBy}
-                    onChange={(e) => setSortBy(e.target.value as 'department' | 'fileType' | 'date')}
-                    className="glass-select"
-                  >
-                    <option value="date">Sort by Date</option>
-                    <option value="department">Sort by Department</option>
-                    <option value="fileType">Sort by File Type</option>
-                  </select>
-                  
-                  <motion.button
-                    onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
-                    className="glass-button"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    {sortOrder === 'asc' ? '↑' : '↓'}
-                  </motion.button>
-                </div>
-              )}
+              <div className="flex items-center space-x-3">
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value as 'department' | 'fileType' | 'date')}
+                  className="glass-select"
+                >
+                  <option value="date">Sort by Date</option>
+                  <option value="department">Sort by Department</option>
+                  <option value="fileType">Sort by File Type</option>
+                </select>
+                
+                <motion.button
+                  onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
+                  className="glass-button"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  {sortOrder === 'asc' ? '↑' : '↓'}
+                </motion.button>
+              </div>
             </motion.div>
 
             {/* Documents */}

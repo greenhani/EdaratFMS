@@ -24,6 +24,7 @@ interface UploadFile {
     accessType: 'public' | 'department' | 'restricted';
     approvalRequired: boolean;
     approverEmail?: string;
+    notifyAllAfterApproval: boolean;
   };
 }
 
