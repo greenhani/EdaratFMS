@@ -342,6 +342,24 @@ function App() {
     }
   };
 
+  const handleBulkRejectWithFeedback = (feedback: string) => {
+    const selectedDocs = documents.filter(doc => selectedDocuments.has(doc.id));
+    
+    setDocuments(prev => 
+      prev.map(doc => 
+        selectedDocuments.has(doc.id) 
+          ? { ...doc, approvalStatus: 'rejected', approvedBy: user.name, approvedAt: new Date() }
+          : doc
+      )
+    );
+    
+    console.log(`Bulk rejected ${selectedDocs.length} documents with feedback:`, feedback);
+    alert(`${selectedDocs.length} documents rejected with feedback sent to uploaders.`);
+    
+    setSelectedDocuments(new Set());
+    setBulkMode(false);
+  };
+
   const handleAddDepartment = (newDept: { name: string; color: string }) => {
     const department: Department = {
       id: Math.random().toString(36).substr(2, 9),
