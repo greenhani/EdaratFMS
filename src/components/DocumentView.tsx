@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Download, Share2, CheckCircle, XCircle, Eye, Copy, Calendar, User, Building2, Tag, FileText, Clock, AlertCircle, CalendarX, Users, Send } from 'lucide-react';
+import { ArrowLeft, Download, Share2, CheckCircle, XCircle, Eye, Copy, Calendar, User, Building2, Tag, FileText, Clock, AlertCircle, CalendarX, Users, Send, Trash2 } from 'lucide-react';
 import { Document, User as UserType, AuditLog } from '../types';
 import { mockDocumentAcceptances, mockUsers } from '../data/mockData';
 import AuditTrail from './AuditTrail';
@@ -11,6 +11,7 @@ interface DocumentViewProps {
   onBack: () => void;
   onApprove?: () => void;
   onReject?: () => void;
+  onDelete?: (documentId: string) => void;
   auditLogs: AuditLog[];
 }
 
@@ -20,6 +21,7 @@ export default function DocumentView({
   onBack, 
   onApprove, 
   onReject, 
+  onDelete,
   auditLogs 
 }: DocumentViewProps) {
   const [activeTab, setActiveTab] = useState('info');
@@ -185,6 +187,16 @@ export default function DocumentView({
                 <Copy className="w-4 h-4" />
                 <span>Copy Link</span>
               </button>
+              
+              {onDelete && (
+                <button
+                  onClick={() => onDelete(document.id)}
+                  className="flex items-center space-x-2 px-4 py-2 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 rounded-sm hover:bg-red-200 dark:hover:bg-red-900/50 transition-colors"
+                >
+                  <Trash2 className="w-4 h-4" />
+                  <span>Delete</span>
+                </button>
+              )}
               
               {canApprove && (
                 <>

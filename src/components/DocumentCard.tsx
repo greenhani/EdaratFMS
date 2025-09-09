@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FileText, Eye, Download, Clock, CheckCircle, XCircle, AlertCircle, File, FileImage, FileSpreadsheet, Calendar, CalendarX } from 'lucide-react';
+import { FileText, Eye, Download, Clock, CheckCircle, XCircle, AlertCircle, File, FileImage, FileSpreadsheet, Calendar, CalendarX, Trash2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Document } from '../types';
 
@@ -12,6 +12,8 @@ interface DocumentCardProps {
   bulkMode?: boolean;
   selected?: boolean;
   onSelect?: (selected: boolean) => void;
+  showDeleteButton?: boolean;
+  onDelete?: (documentId: string) => void;
 }
 
 export default function DocumentCard({ 
@@ -22,7 +24,9 @@ export default function DocumentCard({
   minimal = false,
   bulkMode = false,
   selected = false,
-  onSelect
+  onSelect,
+  showDeleteButton = false,
+  onDelete
 }: DocumentCardProps) {
 
   const getStatusIcon = () => {
@@ -90,7 +94,21 @@ export default function DocumentCard({
                   {document.type}
                 </p>
               </div>
-              {showApprovalStatus && getStatusIcon()}
+              <div className="flex items-center space-x-1">
+                {showApprovalStatus && getStatusIcon()}
+                {showDeleteButton && onDelete && (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onDelete(document.id);
+                    }}
+                    className="p-1 text-gray-400 hover:text-red-500 transition-colors"
+                    title="Delete document"
+                  >
+                    <Trash2 className="w-3 h-3" />
+                  </button>
+                )}
+              </div>
             </div>
           </button>
         </div>
@@ -153,6 +171,18 @@ export default function DocumentCard({
             </div>
           </div>
         </button>
+        {showDeleteButton && onDelete && (
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onDelete(document.id);
+            }}
+            className="p-2 text-gray-400 hover:text-red-500 transition-colors"
+            title="Delete document"
+          >
+            <Trash2 className="w-4 h-4" />
+          </button>
+        )}
       </motion.div>
     );
   }

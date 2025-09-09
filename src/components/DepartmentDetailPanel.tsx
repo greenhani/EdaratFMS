@@ -10,6 +10,8 @@ interface DepartmentDetailPanelProps {
   documents: Document[];
   onDocumentClick: (document: Document) => void;
   showApprovalStatus?: boolean;
+  showDeleteButton?: boolean;
+  onDeleteDocument?: (documentId: string) => void;
   bulkMode?: boolean;
   selectedDocuments?: Set<string>;
   onDocumentSelect?: (documentId: string, selected: boolean) => void;
@@ -22,6 +24,8 @@ export default function DepartmentDetailPanel({
   documents,
   onDocumentClick,
   showApprovalStatus = false,
+  showDeleteButton = false,
+  onDeleteDocument,
   bulkMode = false,
   selectedDocuments = new Set(),
   onDocumentSelect
@@ -85,6 +89,8 @@ export default function DepartmentDetailPanel({
                     }}
                     showApprovalStatus={showApprovalStatus}
                     compact={true}
+                    showDeleteButton={showDeleteButton}
+                    onDelete={onDeleteDocument}
                     bulkMode={bulkMode}
                     selected={selectedDocuments.has(document.id)}
                     onSelect={onDocumentSelect}

@@ -10,6 +10,8 @@ interface DepartmentCardProps {
   onDocumentClick: (document: Document) => void;
   onShowMore: () => void;
   showApprovalStatus?: boolean;
+  showDeleteButton?: boolean;
+  onDeleteDocument?: (documentId: string) => void;
   bulkMode?: boolean;
   selectedDocuments?: Set<string>;
   onDocumentSelect?: (documentId: string, selected: boolean) => void;
@@ -21,6 +23,8 @@ export default function DepartmentCard({
   onDocumentClick, 
   onShowMore,
   showApprovalStatus = false,
+  showDeleteButton = false,
+  onDeleteDocument,
   bulkMode = false,
   selectedDocuments = new Set(),
   onDocumentSelect
@@ -87,6 +91,8 @@ export default function DepartmentCard({
                   onClick={() => onDocumentClick(document)}
                   showApprovalStatus={showApprovalStatus}
                   minimal={true}
+                  showDeleteButton={showDeleteButton}
+                  onDelete={onDeleteDocument}
                  bulkMode={bulkMode}
                  selected={selectedDocuments.has(document.id)}
                  onSelect={(selected) => onDocumentSelect?.(document.id, selected)}

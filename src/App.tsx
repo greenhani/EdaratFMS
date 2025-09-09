@@ -262,6 +262,31 @@ function App() {
     alert(`Approval notifications resent for ${docs.length} document(s)`);
   };
 
+  const handleDeleteDocument = (documentId: string) => {
+    const document = documents.find(doc => doc.id === documentId);
+    if (!document) return;
+    
+    const confirmed = window.confirm(`Are you sure you want to delete "${document.title}"? This action cannot be undone.`);
+    if (confirmed) {
+      setDocuments(prev => prev.filter(doc => doc.id !== documentId));
+      console.log(`Document deleted: ${documentId} by ${user.name}`);
+      alert(`Document "${document.title}" has been deleted successfully.`);
+      
+      // If we're currently viewing this document, go back to main view
+      if (selectedDocument && selectedDocument.id === documentId) {
+        setCurrentView('main');
+        setSelectedDocument(null);
+      }
+      
+      // Remove from bulk selection if selected
+      setSelectedDocuments(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(documentId);
+        return newSet;
+      });
+    }
+  };
+
   const handleApproveDocument = (documentId: string) => {
     setDocuments(prev => 
       prev.map(doc => 
@@ -482,6 +507,8 @@ function App() {
                     compact={viewMode === 'list'}
                     bulkMode={bulkMode}
                     selected={selectedDocuments.has(document.id)}
+                    showDeleteButton={user.role === 'admin'}
+                    onDelete={handleDeleteDocument}
                     onSelect={handleDocumentSelection}
                   />
                 </motion.div>
@@ -514,6 +541,8 @@ function App() {
                 onDocumentClick={handleDocumentClick}
                 onShowMore={() => handleShowMoreDepartment(department.name)}
                 showApprovalStatus={user.role !== 'employee'}
+                showDeleteButton={user.role === 'admin'}
+                onDeleteDocument={handleDeleteDocument}
                 bulkMode={bulkMode}
                 selectedDocuments={selectedDocuments}
                 onDocumentSelect={handleDocumentSelection}
@@ -539,6 +568,7 @@ function App() {
           onBack={() => setCurrentView('main')}
           onApprove={handleApprove}
           onReject={handleReject}
+          onDelete={user.role === 'admin' ? handleDeleteDocument : undefined}
           auditLogs={mockAuditLogs.filter(log => log.documentId === selectedDocument.id)}
         />
         <ThemeToggle />
@@ -860,6 +890,8 @@ function App() {
           documents={selectedDepartmentDetail ? documentsByDepartment.find(d => d.department.id === selectedDepartmentDetail.id)?.documents || [] : []}
           onDocumentClick={handleDocumentClick}
           showApprovalStatus={user.role !== 'employee'}
+          showDeleteButton={user.role === 'admin'}
+          onDeleteDocument={handleDeleteDocument}
           bulkMode={bulkMode}
           selectedDocuments={selectedDocuments}
           onDocumentSelect={handleDocumentSelection}
