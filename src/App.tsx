@@ -13,7 +13,6 @@ import DocumentPreview from './components/DocumentPreview';
 import AuditTrail from './components/AuditTrail';
 import UploadModal from './components/UploadModal';
 import StatsDetailPanel from './components/StatsDetailPanel';
-import FeedbackModal from './components/FeedbackModal';
 import { Document, Department, User } from './types';
 import DocumentView from './components/DocumentView';
 import { mockUsers, mockUser as defaultUser, mockDocuments, mockDepartments, mockAuditLogs } from './data/mockData';
@@ -289,6 +288,14 @@ function App() {
       // Remove from selection after rejection
       setSelectedDocuments(prev => {
         const newSet = new Set(prev);
+        newSet.delete(feedbackDocument.id);
+        return newSet;
+      });
+      
+      // Show success message
+      alert(`Feedback sent successfully for "${feedbackDocument.title}"`);
+      setFeedbackDocument(null);
+    }
   };
 
   const handleStatsClick = (type: 'total' | 'pending' | 'department' | 'public') => {
@@ -448,7 +455,7 @@ function App() {
                     compact={viewMode === 'list'}
                     bulkMode={bulkMode}
                     selected={selectedDocuments.has(document.id)}
-                    onSelect={handleDocumentSelection}
+                    onSelect={(selected) => handleDocumentSelection(document.id, selected)}
                   />
                 </motion.div>
               ))}
@@ -799,18 +806,8 @@ function App() {
           bulkMode={bulkMode}
           onDocumentSelect={handleDocumentSelection}
           onApproveDocument={handleApproveDocument}
-          onRejectDocument={handleRejectDocument} 
+          onRejectDocument={handleRejectDocument}
           onResendNotification={handleResendNotification}
-        />
-
-        <FeedbackModal
-          isOpen={feedbackModalOpen}
-          onClose={() => {
-            setFeedbackModalOpen(false);
-            setFeedbackDocument(null);
-          }}
-          onSubmit={feedbackDocument === selectedDocument ? handleFeedbackSubmit : handleFeedbackFromPanel}
-          document={feedbackDocument}
         />
 
         {/* Drag Overlay */}
