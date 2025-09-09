@@ -20,7 +20,6 @@ export default function UserLogin({ onLogin }: UserLoginProps) {
 
   return (
     <ThemeProvider>
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-teal-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center relative overflow-hidden">
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center relative overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-30">
@@ -160,6 +159,4 @@ export default function UserLogin({ onLogin }: UserLoginProps) {
       </div>
     </ThemeProvider>
   );
-}
-  )
 }
