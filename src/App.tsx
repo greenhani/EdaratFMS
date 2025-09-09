@@ -265,6 +265,62 @@ function App() {
     );
     console.log(`Document rejected: ${documentId} by ${user.name}`);
     
+    // Remove from selection after rejection
+    setSelectedDocuments(prev => {
+      const newSet = new Set(prev);
+      newSet.delete(documentId);
+      return newSet;
+    });
+  };
+
+  const handleStatsClick = (type: 'total' | 'pending' | 'department' | 'public') => {
+    setSelectedStatsType(type);
+    setStatsDetailOpen(true);
+  };
+
+  const handleShowMoreDepartment = (departmentName: string) => {
+    setSelectedDepartment(departmentName);
+    setSearchFilters(prev => ({ ...prev, department: departmentName }));
+  };
+
+  const handleDocumentSelection = (documentId: string, selected: boolean) => {
+    setSelectedDocuments(prev => {
+      const newSet = new Set(prev);
+      if (selected) {
+        newSet.add(documentId);
+      } else {
+        newSet.delete(documentId);
+      }
+      return newSet;
+    });
+  };
+
+  const handlePageDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    setDragOverlay(true);
+  };
+
+  const handlePageDragLeave = (e: React.DragEvent) => {
+    e.preventDefault();
+    if (e.currentTarget === e.target) {
+      setDragOverlay(false);
+    }
+  };
+
+  const handlePageDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setDragOverlay(false);
+    setUploadModalOpen(true);
+  };
+
+  const renderDocuments = () => {
+    if (selectedDepartment) {
+      return (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6 }}
+        >
           {/* Stats Cards - Only show for admin */}
           {user.role === 'admin' && (
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
