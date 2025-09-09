@@ -5,6 +5,7 @@ import { User as UserType } from '../types';
 import { getUserNotifications } from '../data/mockData';
 import SearchBar, { SearchFilters } from './SearchBar';
 import NotificationPanel from './NotificationPanel';
+import AvatarImage from './AvatarImage';
 import { useTheme } from '../contexts/ThemeContext';
 
 interface LayoutProps {
