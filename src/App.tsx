@@ -13,6 +13,7 @@ import DocumentPreview from './components/DocumentPreview';
 import AuditTrail from './components/AuditTrail';
 import UploadModal from './components/UploadModal';
 import StatsDetailPanel from './components/StatsDetailPanel';
+import FeedbackModal from './components/FeedbackModal';
 import { Document, Department, User } from './types';
 import DocumentView from './components/DocumentView';
 import { mockUsers, mockUser as defaultUser, mockDocuments, mockDepartments, mockAuditLogs } from './data/mockData';
@@ -42,6 +43,8 @@ function App() {
   const [selectedStatsType, setSelectedStatsType] = useState<'total' | 'pending' | 'department' | 'public' | null>(null);
   const [selectedDocuments, setSelectedDocuments] = useState<Set<string>>(new Set());
   const [bulkMode, setBulkMode] = useState(false);
+  const [feedbackModalOpen, setFeedbackModalOpen] = useState(false);
+  const [feedbackDocument, setFeedbackDocument] = useState<Document | null>(null);
 
   // Only use currentUser, no fallback to defaultUser
   const user = currentUser;
@@ -161,7 +164,13 @@ function App() {
   };
 
   const handleReject = () => {
+    setFeedbackDocument(selectedDocument);
+    setFeedbackModalOpen(true);
+  };
+
+  const handleFeedbackSubmit = (feedback: string) => {
     if (selectedDocument) {
+      console.log(`Feedback submitted for document ${selectedDocument.title}:`, feedback);
       setDocuments(prev => 
         prev.map(doc => 
           doc.id === selectedDocument.id 
@@ -170,6 +179,8 @@ function App() {
         )
       );
       setCurrentView('main');
+      // Show success message
+      alert(`Feedback sent successfully for "${selectedDocument.title}"`);
     }
   };
 
@@ -256,6 +267,16 @@ function App() {
   };
 
   const handleRejectDocument = (documentId: string) => {
+    const document = documents.find(doc => doc.id === documentId);
+    if (document) {
+      setFeedbackDocument(document);
+      setFeedbackModalOpen(true);
+    }
+  };
+
+  const handleFeedbackFromPanel = (feedback: string) => {
+    if (feedbackDocument) {
+      console.log(`Feedback submitted for document ${feedbackDocument.title}:`, feedback);
     setDocuments(prev => 
       prev.map(doc => 
         doc.id === documentId 
@@ -430,14 +451,18 @@ function App() {
                     compact={viewMode === 'list'}
                     bulkMode={bulkMode}
                     selected={selectedDocuments.has(document.id)}
-                    onSelect={(selected) => handleDocumentSelection(document.id, selected)}
+      console.log(`Document feedback submitted: ${feedbackDocument.id} by ${user.name}`);
                   />
                 </motion.div>
-              ))}
+          doc.id === feedbackDocument.id
             </AnimatePresence>
-          </div>
+        newSet.delete(feedbackDocument.id);
         </motion.div>
       );
+      
+      // Show success message
+      alert(`Feedback sent successfully for "${feedbackDocument.title}"`);
+      setFeedbackDocument(null);
     }
 
     return (
@@ -781,8 +806,18 @@ function App() {
           bulkMode={bulkMode}
           onDocumentSelect={handleDocumentSelection}
           onApproveDocument={handleApproveDocument}
-          onRejectDocument={handleRejectDocument}
+          onRejectDocument={handleRejectDocument} 
           onResendNotification={handleResendNotification}
+        />
+
+        <FeedbackModal
+          isOpen={feedbackModalOpen}
+          onClose={() => {
+            setFeedbackModalOpen(false);
+            setFeedbackDocument(null);
+          }}
+          onSubmit={feedbackDocument === selectedDocument ? handleFeedbackSubmit : handleFeedbackFromPanel}
+          document={feedbackDocument}
         />
 
         {/* Drag Overlay */}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, FileText, Clock, Building2, Eye, CheckCircle, XCircle, Calendar, User, Check, X as XIcon, Bell, Send } from 'lucide-react';
+import { X, FileText, Clock, Building2, Eye, CheckCircle, XCircle, Calendar, User, Check, X as XIcon, Bell, Send, MessageCircle } from 'lucide-react';
 import { Document, User as UserType } from '../types';
 
 interface StatsDetailPanelProps {
@@ -252,10 +252,10 @@ export default function StatsDetailPanel({
                                 e.stopPropagation();
                                 onRejectDocument(document.id);
                               }}
-                              className="flex items-center space-x-1 px-3 py-1.5 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 rounded-sm hover:bg-red-200 dark:hover:bg-red-900/50 transition-colors text-xs"
+                              className="flex items-center space-x-1 px-3 py-1.5 bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400 rounded-sm hover:bg-orange-200 dark:hover:bg-orange-900/50 transition-colors text-xs"
                             >
-                              <XIcon className="w-3 h-3" />
-                              <span>Reject</span>
+                              <MessageCircle className="w-3 h-3" />
+                              <span>Send Feedback</span>
                             </button>
                             <button
                               onClick={(e) => {
