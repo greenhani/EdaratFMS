@@ -679,7 +679,12 @@ export const mockNotifications: Record<string, Notification[]> = {
       timestamp: new Date('2024-01-25T10:30:00'),
       read: false,
       actionUrl: '/documents/2',
-      userId: '2'
+      userId: '2',
+      documentId: '2',
+      actions: [
+        { type: 'acknowledge', label: 'Acknowledge' },
+        { type: 'approve', label: 'Approve' }
+      ]
     },
     {
       id: '7',
@@ -689,7 +694,12 @@ export const mockNotifications: Record<string, Notification[]> = {
       timestamp: new Date('2024-01-24T14:20:00'),
       read: false,
       actionUrl: '/documents/5',
-      userId: '2'
+      userId: '2',
+      documentId: '5',
+      actions: [
+        { type: 'acknowledge', label: 'Acknowledge' },
+        { type: 'approve', label: 'Approve' }
+      ]
     },
     {
       id: '8',
@@ -698,7 +708,10 @@ export const mockNotifications: Record<string, Notification[]> = {
       type: 'info',
       timestamp: new Date('2024-01-21T08:00:00'),
       read: true,
-      userId: '2'
+      userId: '2',
+      actions: [
+        { type: 'acknowledge', label: 'Acknowledge' }
+      ]
     },
     {
       id: '9',
@@ -707,7 +720,10 @@ export const mockNotifications: Record<string, Notification[]> = {
       type: 'info',
       timestamp: new Date('2024-01-10T14:45:00'),
       read: true,
-      userId: '2'
+      userId: '2',
+      actions: [
+        { type: 'acknowledge', label: 'Acknowledge' }
+      ]
     },
     {
       id: '10',
@@ -716,7 +732,10 @@ export const mockNotifications: Record<string, Notification[]> = {
       type: 'info',
       timestamp: new Date('2024-01-21T16:20:00'),
       read: false,
-      userId: '2'
+      userId: '2',
+      actions: [
+        { type: 'acknowledge', label: 'Acknowledge' }
+      ]
     }
   ],
   employee: [
@@ -727,7 +746,10 @@ export const mockNotifications: Record<string, Notification[]> = {
       type: 'info',
       timestamp: new Date('2024-01-15T11:00:00'),
       read: true,
-      userId: '3'
+      userId: '3',
+      actions: [
+        { type: 'acknowledge', label: 'Acknowledge' }
+      ]
     },
     {
       id: '11',
@@ -736,7 +758,10 @@ export const mockNotifications: Record<string, Notification[]> = {
       type: 'warning',
       timestamp: new Date('2024-01-21T09:00:00'),
       read: false,
-      userId: '3'
+      userId: '3',
+      actions: [
+        { type: 'acknowledge', label: 'Acknowledge' }
+      ]
     },
     {
       id: '12',
@@ -745,7 +770,10 @@ export const mockNotifications: Record<string, Notification[]> = {
       type: 'info',
       timestamp: new Date('2024-01-19T17:30:00'),
       read: true,
-      userId: '3'
+      userId: '3',
+      actions: [
+        { type: 'acknowledge', label: 'Acknowledge' }
+      ]
     },
     {
       id: '13',
@@ -754,7 +782,10 @@ export const mockNotifications: Record<string, Notification[]> = {
       type: 'info',
       timestamp: new Date('2024-01-10T15:00:00'),
       read: true,
-      userId: '3'
+      userId: '3',
+      actions: [
+        { type: 'acknowledge', label: 'Acknowledge' }
+      ]
     }
   ]
 };

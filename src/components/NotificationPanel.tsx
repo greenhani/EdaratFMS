@@ -9,7 +9,7 @@ interface NotificationPanelProps {
   onMarkAsRead: (notificationId: string) => void;
   onMarkAllAsRead: () => void;
   userRole: 'admin' | 'manager' | 'employee';
-  onAcknowledge?: (notificationId: string) => void;
+  onNotificationAction?: (notificationId: string, action: 'approve' | 'acknowledge', documentId?: string) => void;
 }
 
 export default function NotificationPanel({ 
@@ -19,7 +19,7 @@ export default function NotificationPanel({
   onMarkAsRead, 
   onMarkAllAsRead,
   userRole,
-  onAcknowledge
+  onNotificationAction
 }: NotificationPanelProps) {
   const unreadCount = notifications.filter(n => !n.read).length;
 
@@ -150,17 +150,28 @@ export default function NotificationPanel({
                               <ExternalLink className="w-3 h-3" />
                             </button>
                           )}
-                          {userRole === 'employee' && !notification.read && onAcknowledge && (
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                onAcknowledge(notification.id);
-                              }}
-                              className="flex items-center space-x-1 px-2 py-1 bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-400 rounded text-xs font-medium hover:bg-teal-200 dark:hover:bg-teal-900/50 transition-colors"
-                            >
-                              <Check className="w-3 h-3" />
-                              <span>Acknowledge</span>
-                            </button>
+                        </div>
+                        
+                        {/* Action Buttons */}
+                        {notification.actions && notification.actions.length > 0 && (
+                          <div className="flex items-center space-x-2 mt-3">
+                            {notification.actions.map((action) => (
+                              <button
+                                key={action.type}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  onNotificationAction?.(notification.id, action.type, notification.documentId);
+                                }}
+                                className={`flex items-center space-x-1 px-3 py-1.5 rounded text-xs font-medium transition-colors ${
+                                  action.type === 'approve'
+                                    ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 hover:bg-green-200 dark:hover:bg-green-900/50'
+                                    : 'bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-400 hover:bg-teal-200 dark:hover:bg-teal-900/50'
+                                }`}
+                              >
+                                <Check className="w-3 h-3" />
+                                <span>{action.label}</span>
+                              </button>
+                            ))}
                           )}
                         </div>
                       </div>
