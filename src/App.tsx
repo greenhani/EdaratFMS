@@ -277,21 +277,18 @@ function App() {
   const handleFeedbackFromPanel = (feedback: string) => {
     if (feedbackDocument) {
       console.log(`Feedback submitted for document ${feedbackDocument.title}:`, feedback);
-    setDocuments(prev => 
-      prev.map(doc => 
-        doc.id === documentId 
-          ? { ...doc, approvalStatus: 'rejected', approvedBy: user.name, approvedAt: new Date() }
-          : doc
-      )
-    );
-    console.log(`Document rejected: ${documentId} by ${user.name}`);
-    
-    // Remove from selection after rejection
-    setSelectedDocuments(prev => {
-      const newSet = new Set(prev);
-      newSet.delete(documentId);
-      return newSet;
-    });
+      setDocuments(prev => 
+        prev.map(doc => 
+          doc.id === feedbackDocument.id 
+            ? { ...doc, approvalStatus: 'rejected', approvedBy: user.name, approvedAt: new Date() }
+            : doc
+        )
+      );
+      console.log(`Document rejected: ${feedbackDocument.id} by ${user.name}`);
+      
+      // Remove from selection after rejection
+      setSelectedDocuments(prev => {
+        const newSet = new Set(prev);
   };
 
   const handleStatsClick = (type: 'total' | 'pending' | 'department' | 'public') => {
@@ -451,18 +448,14 @@ function App() {
                     compact={viewMode === 'list'}
                     bulkMode={bulkMode}
                     selected={selectedDocuments.has(document.id)}
-      console.log(`Document feedback submitted: ${feedbackDocument.id} by ${user.name}`);
+                    onSelect={handleDocumentSelection}
                   />
                 </motion.div>
-          doc.id === feedbackDocument.id
+              ))}
             </AnimatePresence>
-        newSet.delete(feedbackDocument.id);
+          </div>
         </motion.div>
       );
-      
-      // Show success message
-      alert(`Feedback sent successfully for "${feedbackDocument.title}"`);
-      setFeedbackDocument(null);
     }
 
     return (
