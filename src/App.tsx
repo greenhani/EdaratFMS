@@ -885,6 +885,28 @@ function App() {
           document={feedbackDocument}
         />
 
+        {/* Bulk Reject Modal */}
+        <FeedbackModal
+          isOpen={bulkRejectModalOpen}
+          onClose={() => setBulkRejectModalOpen(false)}
+          onSubmit={handleBulkRejectWithFeedback}
+          document={{
+            id: 'bulk-reject',
+            title: `${selectedDocuments.size} Selected Documents`,
+            type: 'Bulk Rejection',
+            department: 'Multiple Departments',
+            fileType: 'multiple',
+            uploadedBy: 'Various Users',
+            uploadedAt: new Date(),
+            lastModified: new Date(),
+            accessType: 'public',
+            approvalStatus: 'pending',
+            tags: [],
+            description: `Bulk rejection of ${selectedDocuments.size} documents`,
+            url: ''
+          } as Document}
+        />
+
         <AddDepartmentModal
           isOpen={addDepartmentModalOpen}
           onClose={() => setAddDepartmentModalOpen(false)}
