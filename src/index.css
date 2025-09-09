@@ -20,11 +20,11 @@
 
   /* Glass Buttons */
   .glass-button {
-    @apply inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-gray-200/60 dark:border-white/20 text-gray-700 dark:text-white text-sm font-medium hover:bg-teal-500/20 hover:border-teal-400/50 hover:text-teal-800 dark:hover:text-white transition-all duration-300 shadow-sm;
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-gray-200/60 dark:border-white/20 text-gray-700 dark:text-white text-sm font-medium hover:bg-edarat-light/20 hover:border-edarat-light/50 hover:text-edarat-dark dark:hover:text-white transition-all duration-300 shadow-sm;
   }
 
   .glass-button-primary {
-    @apply inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-gradient-to-r from-teal-600 to-emerald-600 dark:from-teal-500/80 dark:to-emerald-500/80 backdrop-blur-xl border border-teal-500/60 dark:border-teal-400/50 text-white text-sm font-semibold hover:from-teal-700 hover:to-emerald-700 dark:hover:from-teal-500/90 dark:hover:to-emerald-500/90 hover:border-teal-600/80 dark:hover:border-teal-400/70 transition-all duration-300 shadow-sm;
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-gradient-to-r from-edarat-light to-edarat-dark backdrop-blur-xl border border-edarat-light/60 text-white text-sm font-semibold hover:from-edarat-light/90 hover:to-edarat-dark/90 hover:border-edarat-light/80 transition-all duration-300 shadow-sm;
   }
 
   .glass-button-secondary {
@@ -40,7 +40,7 @@
   }
 
   .glass-button-icon {
-    @apply p-2 rounded-2xl bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-gray-200/60 dark:border-white/20 text-gray-700 dark:text-white hover:bg-teal-500/20 hover:border-teal-400/50 hover:text-teal-800 dark:hover:text-white transition-all duration-300 shadow-sm;
+    @apply p-2 rounded-2xl bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-gray-200/60 dark:border-white/20 text-gray-700 dark:text-white hover:bg-edarat-light/20 hover:border-edarat-light/50 hover:text-edarat-dark dark:hover:text-white transition-all duration-300 shadow-sm;
   }
 
   .glass-toggle {
@@ -48,31 +48,31 @@
   }
 
   .glass-toggle-active {
-    @apply bg-gradient-to-r from-teal-600 to-emerald-600 dark:from-teal-500/50 dark:to-emerald-500/50 text-white border border-teal-500/60 dark:border-teal-400/50 shadow-sm;
+    @apply bg-gradient-to-r from-edarat-light to-edarat-dark text-white border border-edarat-light/60 shadow-sm;
   }
 
   /* Glass Form Elements */
   .glass-select {
-    @apply px-3 py-2 rounded-2xl bg-white dark:bg-gray-700 backdrop-blur-xl border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white text-sm focus:bg-teal-50 dark:focus:bg-teal-900/20 focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all duration-300 shadow-sm;
+    @apply px-3 py-2 rounded-2xl bg-white dark:bg-gray-700 backdrop-blur-xl border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white text-sm focus:bg-edarat-light/10 dark:focus:bg-edarat-dark/20 focus:border-edarat-light focus:outline-none focus:ring-2 focus:ring-edarat-light/50 transition-all duration-300 shadow-sm;
   }
 
   .glass-input {
-    @apply px-4 py-3 rounded-2xl bg-white dark:bg-gray-700 backdrop-blur-xl border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:bg-teal-50 dark:focus:bg-teal-900/20 focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all duration-300 shadow-sm;
+    @apply px-4 py-3 rounded-2xl bg-white dark:bg-gray-700 backdrop-blur-xl border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:bg-edarat-light/10 dark:focus:bg-edarat-dark/20 focus:border-edarat-light focus:outline-none focus:ring-2 focus:ring-edarat-light/50 transition-all duration-300 shadow-sm;
   }
 
   /* Stats Cards */
   .stats-card {
-    @apply w-full text-left p-6 rounded-2xl bg-gradient-to-br from-white/90 to-white/70 dark:from-white/10 dark:to-white/5 backdrop-blur-xl border border-gray-200/60 dark:border-white/20 hover:border-teal-300/50 dark:hover:border-white/30 transition-all duration-500 shadow-sm hover:shadow-md cursor-pointer;
+    @apply w-full text-left p-6 rounded-2xl bg-gradient-to-br from-white/90 to-white/70 dark:from-white/10 dark:to-white/5 backdrop-blur-xl border border-gray-200/60 dark:border-white/20 hover:border-edarat-light/50 dark:hover:border-white/30 transition-all duration-500 shadow-sm hover:shadow-md cursor-pointer;
   }
 
   /* Document Cards */
   .document-card {
-    @apply bg-gradient-to-br from-white/90 to-white/70 dark:from-white/10 dark:to-white/5 backdrop-blur-xl rounded-2xl border border-gray-200/60 dark:border-white/20 overflow-hidden hover:border-teal-300/50 dark:hover:border-white/30 hover:shadow-md transition-all duration-500 cursor-pointer;
+    @apply bg-gradient-to-br from-white/90 to-white/70 dark:from-white/10 dark:to-white/5 backdrop-blur-xl rounded-2xl border border-gray-200/60 dark:border-white/20 overflow-hidden hover:border-edarat-light/50 dark:hover:border-white/30 hover:shadow-md transition-all duration-500 cursor-pointer;
   }
 
   /* Department Cards */
   .department-card {
-    @apply bg-gradient-to-br from-white/90 to-white/70 dark:from-white/10 dark:to-white/5 backdrop-blur-xl rounded-2xl border border-gray-200/60 dark:border-white/20 p-4 hover:border-teal-300/50 dark:hover:border-white/30 hover:shadow-md transition-all duration-500 flex flex-col;
+    @apply bg-gradient-to-br from-white/90 to-white/70 dark:from-white/10 dark:to-white/5 backdrop-blur-xl rounded-2xl border border-gray-200/60 dark:border-white/20 p-4 hover:border-edarat-light/50 dark:hover:border-white/30 hover:shadow-md transition-all duration-500 flex flex-col;
   }
 
   /* Ripple Effect */

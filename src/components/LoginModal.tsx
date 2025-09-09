@@ -103,7 +103,7 @@ export default function LoginModal({ isOpen, onLogin, onClose }: LoginModalProps
                 <div className="flex items-center space-x-3">
                   <div className="w-8 h-8 rounded-sm overflow-hidden bg-white/20">
                     <img 
-                      src="/app_icon.png" 
+                      src="/fsm-icon.png" 
                       alt="Edarat FMS" 
                       className="w-full h-full object-cover rounded-sm"
                     />

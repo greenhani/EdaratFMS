@@ -142,7 +142,7 @@ export default function DocumentView({
                 className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
               >
                 <img 
-                    src="/app_icon.png" 
+                    src="/fsm-icon.png" 
                     alt="Edarat FMS" 
                     className="w-auto h-8 object-cover"
                   />

@@ -250,7 +250,7 @@ export default function SearchBar({ onSearch, placeholder = "Search documents...
           whileFocus={{ scale: 1.01 }}
         >
           <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none z-10">
-            <Search className="h-5 w-5 text-gray-400 dark:text-gray-500 group-focus-within:text-teal-500 dark:group-focus-within:text-teal-400 transition-colors duration-200" />
+            <Search className="h-5 w-5 text-gray-400 dark:text-gray-500 group-focus-within:text-edarat-light dark:group-focus-within:text-edarat-light transition-colors duration-200" />
           </div>
           
           <input
@@ -272,7 +272,7 @@ export default function SearchBar({ onSearch, placeholder = "Search documents...
                 setSelectedIndex(-1);
               }, 150);
             }}
-            className="glass-input w-full pl-12 pr-24 py-3 text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400 border-2 border-transparent focus:border-teal-400 dark:focus:border-teal-500 focus:ring-2 focus:ring-teal-100 dark:focus:ring-teal-900/30 transition-all duration-200"
+            className="glass-input w-full pl-12 pr-24 py-3 text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400 border-2 border-transparent focus:border-edarat-light dark:focus:border-edarat-light focus:ring-2 focus:ring-edarat-light/20 dark:focus:ring-edarat-dark/30 transition-all duration-200"
             placeholder={placeholder}
             autoComplete="off"
           />

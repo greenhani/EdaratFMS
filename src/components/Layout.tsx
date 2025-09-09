@@ -63,7 +63,7 @@ export default function Layout({ user, children, onSearch, onUploadClick, onLogo
                   whileHover={{ scale: 1.1, rotate: 5 }}
                 >
                   <img 
-                    src="/app_icon.png" 
+                    src="/fsm-icon.png" 
                     alt="Edarat FMS" 
                     className="w-full h-full object-cover"
                   />

@@ -21,11 +21,12 @@ export default function UserLogin({ onLogin }: UserLoginProps) {
   return (
     <ThemeProvider>
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-teal-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center relative overflow-hidden">
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center relative overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-30">
-          <div className="absolute inset-0 bg-gradient-to-r from-teal-400/20 to-emerald-400/20 dark:from-teal-600/10 dark:to-emerald-600/10 animate-gradient-x"></div>
-          <div className="absolute top-0 left-1/4 w-72 h-72 bg-teal-300 dark:bg-teal-600 rounded-full mix-blend-multiply dark:mix-blend-overlay filter blur-xl opacity-70 animate-float"></div>
-          <div className="absolute bottom-0 right-1/4 w-72 h-72 bg-emerald-300 dark:bg-emerald-600 rounded-full mix-blend-multiply dark:mix-blend-overlay filter blur-xl opacity-70 animate-float" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-edarat-light/20 to-edarat-dark/20 animate-gradient-x"></div>
+          <div className="absolute top-0 left-1/4 w-72 h-72 bg-edarat-light/60 rounded-full mix-blend-multiply dark:mix-blend-overlay filter blur-xl opacity-70 animate-float"></div>
+          <div className="absolute bottom-0 right-1/4 w-72 h-72 bg-edarat-dark/60 rounded-full mix-blend-multiply dark:mix-blend-overlay filter blur-xl opacity-70 animate-float" style={{ animationDelay: '2s' }}></div>
         </div>
 
         {/* Main Content */}
@@ -44,7 +45,7 @@ export default function UserLogin({ onLogin }: UserLoginProps) {
           >
             <div className="w-24 h-24 mx-auto mb-6 rounded-3xl overflow-hidden shadow-2xl bg-white dark:bg-gray-800 p-4">
               <img 
-                src="/app_icon.png" 
+                src="/fsm-icon.png" 
                 alt="Edarat FMS" 
                 className="w-full h-full object-cover rounded-2xl"
               />

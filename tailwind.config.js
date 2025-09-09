@@ -16,11 +16,15 @@ export default {
           400: 'rgba(255, 255, 255, 0.35)',
           500: 'rgba(255, 255, 255, 0.5)',
         },
+        edarat: {
+          light: '#0AACCC',
+          dark: '#008099',
+        },
         neon: {
-          teal: '#14B8A6',
-          emerald: '#10B981',
+          teal: '#0AACCC',
+          emerald: '#008099',
           silver: '#E5E7EB',
-          glow: '#14B8A6',
+          glow: '#0AACCC',
         },
         spatial: {
           bg: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
