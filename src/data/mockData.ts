@@ -8,7 +8,7 @@ export const mockUsers: User[] = [
     email: 'fms-admin@edaratgroup.com',
     role: 'admin',
     department: 'Information Technology',
-   avatar: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=64&h=64&dpr=1'
+   avatar: 'https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=64&h=64&dpr=1'
   },
   {
     id: '2', 
@@ -24,7 +24,7 @@ export const mockUsers: User[] = [
     email: 'fms-em001@edaratgroup.com',
     role: 'employee',
     department: 'Human Resources',
-   avatar: 'https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=64&h=64&dpr=1'
+   avatar: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=64&h=64&dpr=1'
   }
 ];
 
