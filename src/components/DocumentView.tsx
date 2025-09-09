@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Download, Share2, CheckCircle, XCircle, Eye, Calendar, User, Building2, Tag, FileText, Clock, AlertCircle, CalendarX, Users, Send } from 'lucide-react';
+import { ArrowLeft, Download, Share2, CheckCircle, XCircle, Eye, Copy, Calendar, User, Building2, Tag, FileText, Clock, AlertCircle, CalendarX, Users, Send } from 'lucide-react';
 import { Document, User as UserType, AuditLog } from '../types';
 import { mockDocumentAcceptances, mockUsers } from '../data/mockData';
 import AuditTrail from './AuditTrail';
@@ -176,8 +176,8 @@ export default function DocumentView({
               </button>
               
               <button className="flex items-center space-x-2 px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-sm hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
-                <Share2 className="w-4 h-4" />
-                <span>Share</span>
+                <Copy className="w-4 h-4" />
+                <span>Copy Link</span>
               </button>
               
               {canApprove && (
