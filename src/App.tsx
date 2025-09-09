@@ -654,7 +654,7 @@ function App() {
                     
                     <motion.button
                       onClick={() => setBulkMode(!bulkMode)}
-                      className={bulkMode ? "glass-button-success" : "glass-button"}
+                      className={bulkMode ? "glass-button-dark" : "glass-button"}
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >

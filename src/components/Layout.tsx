@@ -211,7 +211,7 @@ export default function Layout({ user, children, onSearch, onUploadClick, onLogo
       {/* Notification Panel */}
       {showUserMenu && (
         <div 
-          className="fixed inset-0 z-[60]" 
+          className="fixed inset-0 z-[50]" 
           onClick={() => setShowUserMenu(false)}
         userRole={user.role}
         onAcknowledge={(notificationId) => {
