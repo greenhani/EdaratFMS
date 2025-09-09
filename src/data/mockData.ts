@@ -5,7 +5,7 @@ export const mockUsers: User[] = [
   {
     id: '1',
     name: 'Sarah Johnson',
-    email: 'docly-admin@edaratgroup.com',
+    email: 'fms-admin@edaratgroup.com',
     role: 'admin',
     department: 'Information Technology',
     avatar: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=2'
@@ -13,7 +13,7 @@ export const mockUsers: User[] = [
   {
     id: '2', 
     name: 'Ahmed Al-Rashid',
-    email: 'docly-hr@edaratgroup.com',
+    email: 'fms-hr@edaratgroup.com',
     role: 'manager',
     department: 'Human Resources',
     avatar: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=2'
@@ -21,7 +21,7 @@ export const mockUsers: User[] = [
   {
     id: '3',
     name: 'Fatima Al-Zahra', 
-    email: 'docly-em001@edaratgroup.com',
+    email: 'fms-em001@edaratgroup.com',
     role: 'employee',
     department: 'Human Resources',
     avatar: 'https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=2'
@@ -508,7 +508,7 @@ export const mockDocumentAcceptances: DocumentAcceptance[] = [
     documentId: '1', // Employee Handbook 2024
     userId: '2',
     userName: 'Ahmed Al-Rashid',
-    userEmail: 'docly-hr@edaratgroup.com',
+    userEmail: 'fms-hr@edaratgroup.com',
     acceptedAt: new Date('2024-01-16T10:30:00'),
     acceptanceType: 'signed'
   },
@@ -517,7 +517,7 @@ export const mockDocumentAcceptances: DocumentAcceptance[] = [
     documentId: '7', // Remote Work Policy
     userId: '3',
     userName: 'Fatima Al-Zahra',
-    userEmail: 'docly-em001@edaratgroup.com',
+    userEmail: 'fms-em001@edaratgroup.com',
     acceptedAt: new Date('2024-01-19T14:20:00'),
     acceptanceType: 'acknowledged'
   },
@@ -526,7 +526,7 @@ export const mockDocumentAcceptances: DocumentAcceptance[] = [
     documentId: '1', // Employee Handbook 2024
     userId: '1',
     userName: 'Sarah Johnson',
-    userEmail: 'docly-admin@edaratgroup.com',
+    userEmail: 'fms-admin@edaratgroup.com',
     acceptedAt: new Date('2024-01-15T11:45:00'),
     acceptanceType: 'signed'
   }

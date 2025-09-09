@@ -190,9 +190,9 @@ export default function DocumentView({
                   </button>
                   <button
                     onClick={onApprove}
-                    className="px-4 py-2 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-sm hover:bg-green-200 dark:hover:bg-green-900/50 transition-colors"
+                    className="px-4 py-2 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-sm hover:bg-green-200 dark:hover:bg-green-900/50 transition-colors text-sm font-medium"
                   >
-                    Approve
+                    Approve and Acknowledge
                   </button>
                 </>
               )}

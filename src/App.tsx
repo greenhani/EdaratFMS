@@ -14,6 +14,7 @@ import AuditTrail from './components/AuditTrail';
 import UploadModal from './components/UploadModal';
 import StatsDetailPanel from './components/StatsDetailPanel';
 import FeedbackModal from './components/FeedbackModal';
+import AddDepartmentModal from './components/AddDepartmentModal';
 import { Document, Department, User } from './types';
 import DocumentView from './components/DocumentView';
 import { mockUsers, mockUser as defaultUser, mockDocuments, mockDepartments, mockAuditLogs } from './data/mockData';
@@ -45,6 +46,8 @@ function App() {
   const [bulkMode, setBulkMode] = useState(false);
   const [feedbackModalOpen, setFeedbackModalOpen] = useState(false);
   const [feedbackDocument, setFeedbackDocument] = useState<Document | null>(null);
+  const [addDepartmentModalOpen, setAddDepartmentModalOpen] = useState(false);
+  const [departments, setDepartments] = useState<Department[]>(mockDepartments);
 
   // Only use currentUser, no fallback to defaultUser
   const user = currentUser;
@@ -134,7 +137,7 @@ function App() {
     }, {} as Record<string, Document[]>);
 
     return Object.entries(grouped).map(([name, docs]) => {
-      const dept = mockDepartments.find(d => d.name === name) || {
+      const dept = departments.find(d => d.name === name) || {
         id: name,
         name,
         color: '#6B7280',
@@ -142,7 +145,7 @@ function App() {
       };
       return { department: dept, documents: docs };
     });
-  }, [filteredDocuments]);
+  }, [filteredDocuments, departments]);
 
   const handleDocumentClick = (document: Document) => {
     setSelectedDocument(document);
@@ -295,6 +298,19 @@ function App() {
     }
   };
 
+  const handleAddDepartment = (newDept: { name: string; color: string }) => {
+    const department: Department = {
+      id: Math.random().toString(36).substr(2, 9),
+      name: newDept.name,
+      color: newDept.color,
+      documentCount: 0
+    };
+    
+    setDepartments(prev => [...prev, department]);
+    console.log(`New department added: ${newDept.name} by ${user.name}`);
+    alert(`Department "${newDept.name}" added successfully!`);
+  };
+
   const handleStatsClick = (type: 'total' | 'pending' | 'department' | 'public') => {
     setSelectedStatsType(type);
     setStatsDetailOpen(true);
@@ -428,7 +444,6 @@ function App() {
                     <Eye className="w-5 h-5 text-green-600 dark:text-green-400" />
                   </div>
                 </div>
-              </motion.button>
             </div>
           )}
           
@@ -572,6 +587,16 @@ function App() {
                     >
                       <Upload className="w-4 h-4" />
                       <span>Upload Files</span>
+                    </motion.button>
+                    
+                    <motion.button
+                      onClick={() => setAddDepartmentModalOpen(true)}
+                      className="glass-button"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <Building2 className="w-4 h-4" />
+                      <span>Add Department</span>
                     </motion.button>
                     
                     <motion.button
@@ -737,7 +762,7 @@ function App() {
                 </motion.button>
               </div>
 
-              {user.role === 'admin' && (
+              {/* View Controls - Available to all users */}
                 <div className="flex items-center space-x-3">
                   <select
                     value={sortBy}
@@ -806,6 +831,12 @@ function App() {
           }}
           onSubmit={feedbackDocument === selectedDocument ? handleFeedbackSubmit : handleFeedbackFromPanel}
           document={feedbackDocument}
+        />
+
+        <AddDepartmentModal
+          isOpen={addDepartmentModalOpen}
+          onClose={() => setAddDepartmentModalOpen(false)}
+          onAdd={handleAddDepartment}
         />
 
         {/* Drag Overlay */}

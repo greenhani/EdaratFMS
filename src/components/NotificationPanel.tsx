@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Bell, Clock, CheckCircle, AlertCircle, Info, ExternalLink } from 'lucide-react';
+import { X, Bell, Clock, CheckCircle, AlertCircle, Info, ExternalLink, Check } from 'lucide-react';
 import { Notification } from '../types';
 
 interface NotificationPanelProps {
@@ -8,6 +8,8 @@ interface NotificationPanelProps {
   notifications: Notification[];
   onMarkAsRead: (notificationId: string) => void;
   onMarkAllAsRead: () => void;
+  userRole: 'admin' | 'manager' | 'employee';
+  onAcknowledge?: (notificationId: string) => void;
 }
 
 export default function NotificationPanel({ 
@@ -15,7 +17,9 @@ export default function NotificationPanel({
   onClose, 
   notifications, 
   onMarkAsRead, 
-  onMarkAllAsRead 
+  onMarkAllAsRead,
+  userRole,
+  onAcknowledge
 }: NotificationPanelProps) {
   const unreadCount = notifications.filter(n => !n.read).length;
 
@@ -144,6 +148,18 @@ export default function NotificationPanel({
                             <button className="text-xs text-teal-600 dark:text-teal-400 hover:text-teal-700 dark:hover:text-teal-300 font-medium flex items-center space-x-1 transition-colors">
                               <span>View</span>
                               <ExternalLink className="w-3 h-3" />
+                            </button>
+                          )}
+                          {userRole === 'employee' && !notification.read && onAcknowledge && (
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                onAcknowledge(notification.id);
+                              }}
+                              className="flex items-center space-x-1 px-2 py-1 bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-400 rounded text-xs font-medium hover:bg-teal-200 dark:hover:bg-teal-900/50 transition-colors"
+                            >
+                              <Check className="w-3 h-3" />
+                              <span>Acknowledge</span>
                             </button>
                           )}
                         </div>

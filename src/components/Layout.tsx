@@ -214,6 +214,11 @@ export default function Layout({ user, children, onSearch, onUploadClick, onLogo
         <div 
           className="fixed inset-0 z-[60]" 
           onClick={() => setShowUserMenu(false)}
+        userRole={user.role}
+        onAcknowledge={(notificationId) => {
+          handleMarkAsRead(notificationId);
+          console.log(`Employee acknowledged notification: ${notificationId}`);
+        }}
         />
       )}
 
