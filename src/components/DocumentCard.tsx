@@ -93,7 +93,7 @@ export default function DocumentCard({
               {showApprovalStatus && getStatusIcon()}
             </div>
           </button>
-          </button>
+        </div>
       </div>
     );
   }
@@ -116,7 +116,6 @@ export default function DocumentCard({
                 e.stopPropagation();
                 onSelect(e.target.checked);
               }}
-              className="rounded border-gray-300 dark:border-gray-600 text-teal-600 focus:ring-teal-500"
               className="rounded border-white/20 bg-white/10 text-neon-blue focus:ring-neon-blue/50"
             />
           </div>
@@ -152,8 +151,9 @@ export default function DocumentCard({
                 </div>
               )}
             </div>
-                <span>•</span>
-                <div className="flex items-center space-x-1">
-                  <Calendar className="w-3 h-3" />
-                  <span>{new Date(document.lastModified).toLocaleDateString()}</span>
-                </div>
+          </div>
+        </button>
+      </motion.div>
+    );
+  }
+}
