@@ -72,9 +72,4 @@ export interface Notification {
   read: boolean;
   actionUrl?: string;
   userId: string;
-  actions?: {
-    type: 'approve' | 'acknowledge';
-    label: string;
-  }[];
-  documentId?: string;
 }

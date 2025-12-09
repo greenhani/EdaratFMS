@@ -214,13 +214,9 @@ export default function Layout({ user, children, onSearch, onUploadClick, onLogo
           className="fixed inset-0 z-[50]" 
           onClick={() => setShowUserMenu(false)}
         userRole={user.role}
-        onNotificationAction={(notificationId, action, documentId) => {
+        onAcknowledge={(notificationId) => {
           handleMarkAsRead(notificationId);
-          if (action === 'acknowledge') {
-            console.log(`User acknowledged notification: ${notificationId}`);
-          } else if (action === 'approve' && documentId) {
-            console.log(`Manager approved document: ${documentId} from notification: ${notificationId}`);
-          }
+          console.log(`Employee acknowledged notification: ${notificationId}`);
         }}
         />
       )}
